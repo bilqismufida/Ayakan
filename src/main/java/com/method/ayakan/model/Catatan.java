@@ -4,7 +4,7 @@ public class Catatan {
     int id;
     String judulCatatan;
     String isiCatatan;
-    String trye;
+    String trye2004;
 
     public Catatan(String judulCatatan, String isiCatatan) {
     }
