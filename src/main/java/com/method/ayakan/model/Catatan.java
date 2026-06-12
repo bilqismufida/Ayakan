@@ -1,4 +1,4 @@
-package com.method.ayakan;
+package com.method.ayakan.model;
 
 public class Catatan {
     int id;

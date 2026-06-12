@@ -1,6 +1,7 @@
 
 package com.method.ayakan;
 
+import com.method.ayakan.model.MataKuliah;
 import java.util.List;
 
 public class MataKuliahManager {

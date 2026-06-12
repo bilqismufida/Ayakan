@@ -4,6 +4,8 @@
  */
 package com.method.ayakan;
 
+import com.method.ayakan.model.MataKuliah;
+
 class LinkManager {
     public void tambahLink(MataKuliah matkul, String judul, String url) {
     }

@@ -1,5 +1,7 @@
 package com.method.ayakan;
 
+import com.method.ayakan.model.MataKuliah;
+
 public class CatatanManager {
     public void tambahCatatan(MataKuliah matkul, String judulCatatan, String isiCatatan) {
     }

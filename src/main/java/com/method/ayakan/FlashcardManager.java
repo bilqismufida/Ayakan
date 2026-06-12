@@ -1,5 +1,7 @@
 package com.method.ayakan;
 
+import com.method.ayakan.model.MataKuliah;
+
 public class FlashcardManager {
     public void tambahFlashcard(MataKuliah matkul, String istilah, String definisi) {
     }
