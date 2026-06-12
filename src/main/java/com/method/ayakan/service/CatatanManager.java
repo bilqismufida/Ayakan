@@ -1,4 +1,4 @@
-package com.method.ayakan;
+package com.method.ayakan.service;
 
 import com.method.ayakan.model.MataKuliah;
 
