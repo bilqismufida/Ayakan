@@ -4,10 +4,26 @@
  */
 package com.method.ayakan.model;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  *
  * @author TRYE TINTIAN RUNGA
  */
-public class TugasIndividu {
+public class TugasIndividu extends Tugas {
+    private static final DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd-MM-yyy");
+    
+    public TugasIndividu(String judul, String deskripsi, String priority, LocalDate deadline){
+      super(judul, deskripsi, priority, deadline);  
+    }
+    
+    public String getInfo(){
+        return "[Tugas Individu]" +
+                "\nJudul     : " + getJudul() +
+                "\nPrioritas : " + getPriority() +
+                "\nDeadline  : " + getDeadline() +
+                "\nStatus    : " + markCompleted();
+    }
     
 }
