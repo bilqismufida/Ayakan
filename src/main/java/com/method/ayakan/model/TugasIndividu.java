@@ -18,6 +18,7 @@ public class TugasIndividu extends Tugas {
       super(judul, deskripsi, priority, deadline);  
     }
     
+    @Override
     public String getInfo(){
         return "[Tugas Individu]" +
                 "\nJudul     : " + getJudul() +
