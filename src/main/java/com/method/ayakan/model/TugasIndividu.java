@@ -11,11 +11,12 @@ import java.time.format.DateTimeFormatter;
  *
  * @author TRYE TINTIAN RUNGA
  */
+import java.time.LocalDate;
 public class TugasIndividu extends Tugas {
     private static final DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd-MM-yyy");
     
-    public TugasIndividu(String judul, String deskripsi, String priority, LocalDate deadline){
-      super(judul, deskripsi, priority, deadline);  
+    public TugasIndividu(String judul, String deskripsi, boolean status, String priority, LocalDate deadline){
+      super(judul, deskripsi, status, priority, deadline);  
     }
     
     @Override
@@ -24,7 +25,6 @@ public class TugasIndividu extends Tugas {
                 "\nJudul     : " + getJudul() +
                 "\nPrioritas : " + getPriority() +
                 "\nDeadline  : " + getDeadline() +
-                "\nStatus    : " + markCompleted();
+                "\nStatus    : " + getStatusString();
     }
-    
 }
