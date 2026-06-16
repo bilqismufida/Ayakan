@@ -8,7 +8,7 @@ import com.method.ayakan.exception.DataNotFoundException;
 import com.method.ayakan.model.MataKuliah;
 import com.method.ayakan.model.Link;
 
-class LinkManager {
+public class LinkManager {
     private int idCounter = 1; //otomatis nambah buat id
 
     public void tambahLink(MataKuliah matkul, String judul, String url) {
