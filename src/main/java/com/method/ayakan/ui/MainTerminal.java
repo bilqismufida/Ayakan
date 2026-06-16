@@ -28,10 +28,13 @@ public class MainTerminal {
         
     private static void jalankanAplikasi(){     
         boolean isRunning = true;
+        
   
         System.out.println("===== * ===== *** ===== * =====");
         System.out.println("    SISTEM MANAJEMEN TUGAS     ");
         System.out.println("===== * ===== *** ===== * =====");
+        
+        
         
         while(isRunning){
             System.out.println("\n----- MENU MATA KULIAH -----");
@@ -73,11 +76,11 @@ public class MainTerminal {
             }
         }
     }
-    private static void tampilkanDashboardTugas() {
-        
-    }
     private static void tampilkanMenuUtama() {
           
+    }
+    private static void tampilkanDashboardTugas() {
+        
     }
     private static void halamanMataKuliah() {
         
