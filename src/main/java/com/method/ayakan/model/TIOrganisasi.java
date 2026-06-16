@@ -6,7 +6,7 @@ package com.method.ayakan.model;
 
 /**
  *
- * @author UserID
+ * @author RayaRahma
  */
 import java.time.LocalDate;
 public class TIOrganisasi extends TugasIndividu {
