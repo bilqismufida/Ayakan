@@ -1,16 +1,34 @@
 package com.method.ayakan.ui;
 
 import com.method.ayakan.repository.MataKuliahRepository;
+import com.method.ayakan.service.CatatanManager;
+import com.method.ayakan.service.FlashcardManager;
 import com.method.ayakan.service.MataKuliahManager;
+import com.method.ayakan.service.LinkManager;
 import java.util.Scanner;
 
 public class MainTerminal {
+    
+    private static Scanner scanner = new Scanner(System.in);
+    private static MataKuliahManager mkManager;
+    private static CatatanManager catatanmanager;
+    private static FlashcardManager flascardmanager;
+    private static LinkManager linkmanager;
+    
     public static void main(String[] args) {
+        
         MataKuliahRepository repo = new MataKuliahRepository();
         MataKuliahManager mkManager = new MataKuliahManager(repo);
+        CatatanManager catatanmanager = new CatatanManager();
+        FlashcardManager flascardmanager = new FlashcardManager();
+        LinkManager linkmanager = new LinkManager();
         
-        Scanner sc = new Scanner(System.in);
+        jalankanAplikasi();
+    }
+        
+    private static void jalankanAplikasi(){     
         boolean isRunning = true;
+     
         
         System.out.println("===== * ===== *** ===== * =====");
         System.out.println("   SISTEM MANAJEMEN TUGAS      ");
@@ -25,26 +43,58 @@ public class MainTerminal {
             System.out.println("0. Keluar Aplikasi");
             System.out.print("Pilih menu: ");
             
-            int pilih = sc.nextInt();
-            sc.nextLine();
+            tampilkanDashboardTugas(); 
+            tampilkanMenuUtama();
+        
+            String pilihan = MissionUtil.getUserInput(); 
             
-            switch (pilih){
-                case 1:
-                    System.out.print("Masukkan ID Matkul: ");
-                    int idBaru = sc.nextInt();
-                    sc.nextLine();
-                    
-                    System.out.print("Masukkan Nama Matkul: ");
-                    String mkBaru = sc.nextLine();
-                    
-                    mkManager.tambah(idBaru, mkBaru);
+            
+            switch (pilihan){
+                case "1":
+                    halamanMataKuliah(); 
                     break;
-                case 2:
-                    mkManager.tampilkanSemua();
+                case "2":
+                    halamanTugas(); 
                     break;
+                case "3":
+                    halamanCatatan();
+                    break;
+                case "4":
+                    halamanFlashcard();
+                    break;
+                case "5":
+                    halamanLink();
+                    break;
+                case "0":
+                    System.out.println("Menyimpan data... Sampai jumpa!");
+                    isRunning = false;
+                    break;
+                default:
+                    System.out.println("❌ Pilihan tidak valid. Tekan Enter untuk mencoba lagi.");
+                    MissionUtil.getUserInput();      
             }
         }
-        
-        sc.close();
     }
+    private static void tampilkanDashboardTugas() {
+        
+    }
+    private static void tampilkanMenuUtama() {
+          
+    }
+    private static void halamanMataKuliah() {
+        
+    }
+    private static void halamanTugas() {
+        
+    }
+    private static void halamanCatatan() {
+        
+    }
+    private static void halamanFlashcard() {
+        
+    }
+    private static void halamanLink() {
+        
+    }
+    
 }
