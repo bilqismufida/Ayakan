@@ -9,6 +9,4 @@ public interface ITugas {
     public String getInfo();
     public void markCompleted();
    
-    
-    
 }
