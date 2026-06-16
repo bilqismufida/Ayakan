@@ -31,7 +31,7 @@ public class MainTerminal {
      
         
         System.out.println("===== * ===== *** ===== * =====");
-        System.out.println("   SISTEM MANAJEMEN TUGAS      ");
+        System.out.println("    SISTEM MANAJEMEN TUGAS     ");
         System.out.println("===== * ===== *** ===== * =====");
         
         while(isRunning){
