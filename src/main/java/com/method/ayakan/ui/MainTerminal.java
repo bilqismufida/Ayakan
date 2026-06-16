@@ -95,6 +95,7 @@ public class MainTerminal {
     }
     private static void halamanLink() {
         
+        
     }
     
 }
