@@ -28,8 +28,7 @@ public class MainTerminal {
         
     private static void jalankanAplikasi(){     
         boolean isRunning = true;
-     
-        
+  
         System.out.println("===== * ===== *** ===== * =====");
         System.out.println("    SISTEM MANAJEMEN TUGAS     ");
         System.out.println("===== * ===== *** ===== * =====");
@@ -47,7 +46,6 @@ public class MainTerminal {
             tampilkanMenuUtama();
         
             String pilihan = MissionUtil.getUserInput(); 
-            
             
             switch (pilihan){
                 case "1":
