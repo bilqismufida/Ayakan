@@ -7,28 +7,38 @@ package com.method.ayakan.service;
 import com.method.ayakan.exception.DataNotFoundException;
 import com.method.ayakan.model.MataKuliah;
 import com.method.ayakan.model.Link;
+import com.method.ayakan.repository.LinkRepository;
+import com.method.ayakan.ui.UITerminal;
 
 public class LinkManager {
     private int idCounter = 1; //otomatis nambah buat id
+    
+    private LinkRepository repo;
+    private static UITerminal cover;
 
-    public void tambahLink(MataKuliah matkul, String judul, String url) {
+    public LinkManager(LinkRepository repo) {
+        this.repo = repo;
+    }
+    
+    public void tambah(MataKuliah matkul, String judul, String url) {
         int newId = idCounter++;
         Link fcBaru = new Link(newId, judul, url);
         matkul.getDaftarLink().put(newId, fcBaru);
         System.out.println("Link '" + judul + "' ditambahkan ke " + matkul.getNamaMatkul());
     }
 
-    public void tampilSemuaLink(MataKuliah matkul) {
-        System.out.println("\n----- LINK: " + matkul.getNamaMatkul() + " -----");
+    public void tampilkanSemua(MataKuliah matkul) {
+        cover.tableH("Link "+matkul.getNamaMatkul());
         if (matkul.getDaftarLink().isEmpty()) {
             System.out.println("Link kosong.");
         }
         for (Link c : matkul.getDaftarLink().values()) {
             c.getInfo();
         }
+        cover.tableT();
     }
 
-    public void updateLink(MataKuliah matkul, int idLink, String judulBaru, String urlBaru) {
+    public void update(MataKuliah matkul, int idLink, String judulBaru, String urlBaru) {
         try {
             if (!matkul.getDaftarLink().containsKey(idLink)) {
                 throw new DataNotFoundException("Link ID " + idLink + " tidak ditemukan.");
@@ -43,7 +53,7 @@ public class LinkManager {
         }
     }
 
-    public void hapusLink(MataKuliah matkul, int idLink) {
+    public void hapus(MataKuliah matkul, int idLink) {
         try {
             if (!matkul.getDaftarLink().containsKey(idLink)) {
                 throw new DataNotFoundException("Link ID " + idLink + " tidak ditemukan.");

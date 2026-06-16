@@ -3,11 +3,13 @@ package com.method.ayakan.service;
 import com.method.ayakan.exception.DataNotFoundException;
 import com.method.ayakan.model.MataKuliah;
 import com.method.ayakan.repository.MataKuliahRepository;
+import com.method.ayakan.ui.UITerminal;
 import java.util.List;
 
 public class MataKuliahManager {
 
     private MataKuliahRepository repo;
+    private static UITerminal cover;
 
     public MataKuliahManager(MataKuliahRepository repo) {
         this.repo = repo;
@@ -20,7 +22,7 @@ public class MataKuliahManager {
     }
 
     public void tampilkanSemua() {
-        System.out.println("\n===== DAFTAR MATA KULIAH =====");
+        cover.tableH("Mata Kuliah");
         if (repo.findAll().isEmpty()) {
             System.out.println("Belum ada mata kuliah");
             return;
@@ -28,21 +30,14 @@ public class MataKuliahManager {
         for (MataKuliah mk : repo.findAll().values()) {
             System.out.println(mk.toString());
         }
-        System.out.println("\n==============================");
+        cover.tableT();
 
     }
 
     public void update(int idTarget, String namaMatkulBaru) {
-        try {
-            if (!repo.check(idTarget)) {
-                throw new DataNotFoundException("Mata Kuliah dengan ID " + idTarget + " tidak ditemukan");
-            }
-            MataKuliah mk = repo.findById(idTarget);
-            mk.setNamaMatkul(namaMatkulBaru);
-            System.out.println("Mata Kuliah ID " + idTarget + " berhasil diupdate");
-        } catch (DataNotFoundException e) {
-            System.out.println("[Error] " + e.getMessage());
-        }
+        MataKuliah mk = repo.findById(idTarget);
+        mk.setNamaMatkul(namaMatkulBaru);
+        System.out.println("Mata Kuliah ID " + idTarget + " berhasil diupdate");
     }
 
     public void hapus(int idTarget) {

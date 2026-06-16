@@ -5,6 +5,7 @@ import com.method.ayakan.service.CatatanManager;
 import com.method.ayakan.service.FlashcardManager;
 import com.method.ayakan.service.MataKuliahManager;
 import com.method.ayakan.service.LinkManager;
+import com.method.ayakan.ui.page.HalamanMataKuliah;
 import java.util.Scanner;
 
 public class MainTerminal {
@@ -14,6 +15,11 @@ public class MainTerminal {
     private static CatatanManager catatanmanager;
     private static FlashcardManager flascardmanager;
     private static LinkManager linkmanager;
+    
+    //panggil menu terminal
+    private static MenuTerminal menu;
+    private static HalamanMataKuliah mk;
+    private static UITerminal cover;
     
     public static void main(String[] args) {
         
@@ -30,18 +36,14 @@ public class MainTerminal {
         boolean isRunning = true;
         
   
-        System.out.println("===== * ===== *** ===== * =====");
-        System.out.println("    SISTEM MANAJEMEN TUGAS     ");
-        System.out.println("===== * ===== *** ===== * =====");
-        
-        
+        cover.title();       
         
         while(isRunning){
-            System.out.println("\n----- MENU MATA KULIAH -----");
-            System.out.println("1. Tambah Mata Kuliah");
-            System.out.println("2. Tampilkan Semua Mata Kuliah");
-            System.out.println("3. Update Mata Kuliah");
-            System.out.println("4. Hapus Mata Kuliah");
+            System.out.println("1. Mata Kuliah");
+            System.out.println("2. Tugas");
+            System.out.println("3. Catatan");
+            System.out.println("4. Flashcard");
+            System.out.println("5. Link");
             System.out.println("0. Keluar Aplikasi");
             System.out.print("Pilih menu: ");
             
@@ -52,7 +54,7 @@ public class MainTerminal {
             
             switch (pilihan){
                 case "1":
-                    halamanMataKuliah(); 
+                    mk.halamanMataKuliah(); 
                     break;
                 case "2":
                     halamanTugas(); 
@@ -80,9 +82,6 @@ public class MainTerminal {
           
     }
     private static void tampilkanDashboardTugas() {
-        
-    }
-    private static void halamanMataKuliah() {
         
     }
     private static void halamanTugas() {

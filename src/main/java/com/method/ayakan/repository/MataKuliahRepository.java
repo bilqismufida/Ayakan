@@ -25,4 +25,7 @@ public class MataKuliahRepository {
     public boolean check(int id){
         return dbMatkul.containsKey(id);
     }
+    public boolean isEmpty(){
+        return dbMatkul.isEmpty();
+    }
 }
