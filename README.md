@@ -10,7 +10,7 @@ Merupakan aplikasi yang berfokus untuk membantu mahasiswa memanajemen tugas mesk
 
 ## Description
 
-Aplikasi pengelolaan data tugas berbasis java dengan GUI yang ditargetkan untuk mahasiswa yang sulit membagi waktu untuk mengerjakan tugas yang dibarengi dengan
+Aplikasi pengelolaan data tugas berbasis java yang ditargetkan untuk mahasiswa yang sulit membagi waktu untuk mengerjakan tugas yang dibarengi dengan
 kewajiban di luar jam perkuliahan, tak hanya itu aplikasi ini juga memiliki berbagai fitur untuk membantu mahasiswa dalam hal lainnya.
 
 ### Features

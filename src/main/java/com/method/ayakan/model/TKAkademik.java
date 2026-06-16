@@ -25,10 +25,10 @@ public class TKAkademik extends TugasKelompok{
         return super.getAnggota(); 
     }
 
-    @Override
-    public String getNamaKel() {
-        return super.getNamaKel(); 
-    }
+//    @Override
+//    public String getNamaKel() {
+//        return super.getNamaKel(); 
+//    }
 
     @Override
     public void markCompleted() {
