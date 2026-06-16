@@ -23,6 +23,7 @@ public class TugasIndividu extends Tugas {
     public String getInfo(){
         return "[Tugas Individu]" +
                 "\nJudul     : " + getJudul() +
+                "\nDeskripsi: " + getDeskripsi() +
                 "\nPrioritas : " + getPriority() +
                 "\nDeadline  : " + getDeadline() +
                 "\nStatus    : " + getStatusString();
