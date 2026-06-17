@@ -17,8 +17,6 @@ public class MainTerminal {
     private static FlashcardManager flascardmanager;
     private static LinkManager linkmanager;
     
-    //panggil menu terminal
-    private static MenuTerminal menu;
     private static HalamanMataKuliah mk;
     private static UITerminal cover;
     
