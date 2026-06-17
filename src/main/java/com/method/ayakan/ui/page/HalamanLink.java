@@ -1,36 +1,29 @@
 package com.method.ayakan.ui.page;
 
 import com.method.ayakan.exception.DataNotFoundException;
+import com.method.ayakan.model.MataKuliah;
 import com.method.ayakan.repository.LinkRepository;
-import com.method.ayakan.repository.MataKuliahRepository;
 import com.method.ayakan.service.LinkManager;
-import com.method.ayakan.service.MataKuliahManager;
 import com.method.ayakan.ui.MissionUtil;
 import com.method.ayakan.ui.UITerminal;
 
 public class HalamanLink {
 
-    private static LinkManager linkManager;
-    private static MataKuliahManager mkManager;
+    private static LinkRepository repoLink = new LinkRepository();
 
-    private static UITerminal cover;
+    private static LinkManager linkManager = new LinkManager(repoLink);
 
-    public static void halamanLink() {
-
-        MataKuliahRepository repoMk = new MataKuliahRepository();
-        mkManager = new MataKuliahManager(repoMk);
-        LinkRepository repo = new LinkRepository();
-        linkManager = new LinkManager(repo);
-
+    public static void halamanLink(MataKuliah matkulTerpilih) {
         boolean diHalIni = true;
 
         while (diHalIni) {
-            cover.h1("Link");
+            UITerminal.h1("LINK - " + matkulTerpilih.getNamaMatkul());
+
             System.out.println("1. Tambah Link");
             System.out.println("2. Tampilkan Semua Link");
             System.out.println("3. Update Link");
             System.out.println("4. Hapus Link");
-            System.out.println("0. Kembali ke Dashboard");
+            System.out.println("0. Kembali ke Detail Matkul");
             System.out.print("Pilih menu: ");
 
             String aksi = MissionUtil.getUserInput();
@@ -45,16 +38,8 @@ public class HalamanLink {
                         int idBaru = Integer.parseInt(MissionUtil.getUserInput());
 
                         try {
-                            if (repo.check(idBaru)) {
+                            if (repoLink.check(idBaru)) {
                                 throw new DataNotFoundException("Link dengan ID " + idBaru + " sudah ada, silahkan gunakan ID lain");
-                            }
-
-                            System.out.println("Pilih Mata Kuliah:");
-                            mkManager.tampilkanSemua();
-                            System.out.print("Pilih Matkul: ");
-                            int idMatkul = Integer.parseInt(MissionUtil.getUserInput());
-                            if (!repo.check(idBaru)) {
-                                throw new DataNotFoundException("Matkul dengan ID " + idBaru + " tidak ada, silahkan gunakan matkul lain");
                             }
 
                             System.out.print("Masukkan Judul Link: ");
@@ -63,40 +48,52 @@ public class HalamanLink {
                             System.out.print("Masukkan URL: ");
                             String url = MissionUtil.getUserInput();
 
-                            linkManager.tambah(repoMk.findById(idMatkul), judul, url);
+                            linkManager.tambah(matkulTerpilih, idBaru, judul, url);
                         } catch (DataNotFoundException e) {
                             System.out.println("[Error] " + e.getMessage());
                         }
                         break;
+
                     case "2":
-                        linkManager.tampilkanSemua();
+                        linkManager.tampilkanSemua(matkulTerpilih);
                         System.out.println("\nSilahkan tekan enter untuk melanjutkan..");
                         MissionUtil.getUserInput();
                         break;
+
                     case "3":
-                        if (repo.isEmpty()) {
-                            System.out.println("Data kosong, silahkan tambah data terlebih dahulu");
-                            break;
-                        }
+                        linkManager.tampilkanSemua(matkulTerpilih);
+
                         System.out.print("Masukkan ID Link yang ingin diubah: ");
                         int idUpdLink = Integer.parseInt(MissionUtil.getUserInput());
                         try {
-                            if (!repo.check(idUpdLink)) {
+                            if (!repoLink.check(idUpdLink)) {
                                 throw new DataNotFoundException("Link dengan ID " + idUpdLink + " tidak ditemukan");
                             }
 
-                            System.out.println("Nama Link Sebelumnya [" + repo.findById(idUpdLink) + "]");
-                            System.out.print("Masukkan Nama Link Baru: ");
-                            String mkBaru = MissionUtil.getUserInput();
-                            linkManager.update(idUpdLink, mkBaru);
+                            System.out.println("Judul Lama: " + repoLink.findById(idUpdLink));
+                            System.out.print("Masukkan Judul Baru: ");
+                            String judulBaru = MissionUtil.getUserInput();
+                            System.out.print("Masukkan URL Baru: ");
+                            String urlBaru = MissionUtil.getUserInput();
+
+                            linkManager.update(matkulTerpilih, idUpdLink, judulBaru, urlBaru);
                         } catch (DataNotFoundException e) {
                             System.out.println("[Error] " + e.getMessage());
                         }
                         break;
+
                     case "4":
+                        linkManager.tampilkanSemua(matkulTerpilih);
                         System.out.print("Masukkan ID Link yang ingin dihapus: ");
-                        int idDelLink = Integer.parseInt(MissionUtil.getUserInput());
-                        linkManager.hapus(idDelLink);
+                        int idDel = Integer.parseInt(MissionUtil.getUserInput());
+
+                        linkManager.hapus(matkulTerpilih, idDel);
+                        break;
+
+                    case "0":
+                        diHalIni = false;
+                        break;
+
                     default:
                         System.out.println("Pilihan tidak valid!");
                 }
