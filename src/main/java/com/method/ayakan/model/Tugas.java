@@ -48,8 +48,6 @@ public abstract class Tugas implements ITugas{
         return deadline;
     }
      
-    
-    
     @Override
     public void markCompleted(){
        this.status = true;
@@ -57,9 +55,5 @@ public abstract class Tugas implements ITugas{
     }
     
     @Override
-    public abstract String getInfo();
-    
-   
-       
-    
+    public abstract String getInfo(); 
 }

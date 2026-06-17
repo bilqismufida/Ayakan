@@ -10,19 +10,24 @@ package com.method.ayakan.model;
  */
 import java.time.LocalDate;
 public class TIAkademik extends TugasIndividu {
-    private String mataKuliah;
+    private String namaMataKuliah;
 
-    public TIAkademik(String mataKuliah, String judul, String deskripsi, boolean status, String priority, LocalDate deadline) {
+    public TIAkademik(String namaMataKuliah, String judul, String deskripsi, boolean status, String priority, LocalDate deadline) {
         super(judul, deskripsi, status, priority, deadline);
-        this.mataKuliah = mataKuliah;
+        this.namaMataKuliah = namaMataKuliah; 
     }
 
-    public String getMataKuliah() {
-        return mataKuliah;
+    public String getNamaMataKuliah() {
+        return namaMataKuliah;
     }
-
+    
+    @Override
+    public void markCompleted() {
+        super.markCompleted(); 
+    }
+    
     @Override
     public String getInfo() {
-        return super.getInfo() + "\nMata Kuliah: " + mataKuliah;
+        return super.getInfo() + "\nMata Kuliah: " + getNamaMataKuliah();
     }
 }
