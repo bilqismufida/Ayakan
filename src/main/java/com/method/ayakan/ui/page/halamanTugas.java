@@ -5,10 +5,9 @@
 package com.method.ayakan.ui.page;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.time.LocalDate;                      // <--- Solusi eror LocalDate
-import java.time.format.DateTimeParseException;    // <--- Solusi eror DateTimeParseException
+import java.time.LocalDate;                      
+import java.time.format.DateTimeParseException;    
 
-// Import model & exception kamu
 import com.method.ayakan.service.TaskManager;
 import com.method.ayakan.model.*;
 import com.method.ayakan.exception.DataNotFoundException;
@@ -39,7 +38,7 @@ public class halamanTugas {
                 inputHapusTugas();
             } else if (pilihan.equals("0")) {
                 System.out.println("Keluar dari Halaman Tugas...");
-                break; // Keluar dari loop tugas, otomatis kembali ke Main Terminal
+                break; 
             } else {
                 System.out.println("Pilihan tidak valid!");
             }
@@ -58,7 +57,6 @@ public class halamanTugas {
         for (int i = 0; i < list.size(); i++) {
             Tugas t = list.get(i);
             System.out.println("\nNo. " + (i + 1));
-            // Memanggil method getInfo() yang sudah kamu override di model
             System.out.println(t.getInfo());
             System.out.println("-----------------------------------");
         }
@@ -83,7 +81,7 @@ public class halamanTugas {
             }
         }
 
-        boolean statusAwal = false; // Status default tugas baru belum selesai
+        boolean statusAwal = false; 
 
         System.out.println("\nPilih Jenis Tugas:");
         System.out.println("1. Tugas Individu");
@@ -167,7 +165,7 @@ public class halamanTugas {
             System.out.print("Masukkan Deskripsi Baru: ");
             String deskripsiBaru = scanner.nextLine();
 
-            // Memanggil method editTugas terbaru yang menerima String data mentah
+            
             taskManager.editTugas(index, judulBaru, deskripsiBaru);
             System.out.println("Berhasil! Tugas telah diperbarui.");
 
