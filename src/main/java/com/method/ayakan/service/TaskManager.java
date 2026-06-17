@@ -6,7 +6,7 @@ package com.method.ayakan.service;
 
 import java.util.ArrayList;
 import com.method.ayakan.model.Tugas;
-
+import com.method.ayakan.exception.DataNotFoundException;
 /**
  *
  * @author UserID
@@ -18,13 +18,23 @@ public class TaskManager {
         daftarTugas.add(t); 
     }
 
-    public void editTugas(int index, Tugas t) {
-        if (index >= 0 && index < daftarTugas.size()) daftarTugas.set(index, t);
+    public void editTugas(int index, String JudulBaru, String DeskripsiBaru)throws DataNotFoundException {
+        if (index < 0 || index >= daftarTugas.size()) {
+            throw new DataNotFoundException("Gagal Edit: Tugas nomor " + (index + 1) + " tidak ditemukan!");
+        }
+        
+        Tugas t = daftarTugas.get(index);
+        
+        
+        t.setJudul(JudulBaru);
+        t.setDeskripsi(DeskripsiBaru);
     }
 
-    public void hapusTugas(int index) {
+    public void hapusTugas(int index) throws DataNotFoundException {
         if (index >= 0 && index < daftarTugas.size()) {
             daftarTugas.remove(index);
+        } else {
+            throw new DataNotFoundException("Gagal Hapus: Tugas nomor " + (index + 1) + " tidak ditemukan!");
         }
     }
 
