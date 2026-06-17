@@ -1,89 +1,128 @@
 package com.method.ayakan.ui.page;
 
+//import com.method.ayakan.exception.DataNotFoundException;
 import com.method.ayakan.exception.DataNotFoundException;
-import com.method.ayakan.repository.MataKuliahRepository;
+import com.method.ayakan.model.MataKuliah;
 import com.method.ayakan.service.MataKuliahManager;
 import com.method.ayakan.ui.MissionUtil;
 import com.method.ayakan.ui.UITerminal;
 
 public class HalamanMataKuliah {
 
-    private static MataKuliahManager mkManager ;
-    private static UITerminal cover;
-    public static void halamanMataKuliah() {
-        MataKuliahRepository repo = new MataKuliahRepository();
-        mkManager = new MataKuliahManager(repo);
-
+    public static void halMatkul(MataKuliahManager mkManager) {
         boolean diHalIni = true;
 
         while (diHalIni) {
-            cover.h1("Mata Kuliah");
-            System.out.println("1. Tambah Mata Kuliah");
-            System.out.println("2. Tampilkan Semua Mata Kuliah");
-            System.out.println("3. Update Mata Kuliah");
-            System.out.println("4. Hapus Mata Kuliah");
-            System.out.println("0. Kembali ke Dashboard");
-            System.out.print("Pilih menu: ");
+            UITerminal.h1("DAFTAR MATA KULIAH");
+
+            mkManager.tampilkanSemua();
+            System.out.println("----------------------------------------");
+            System.out.println("Ketik [ID Matkul] untuk melihat detail dan mengelola fitur.");
+            System.out.println("Ketik [T] untuk Tambah Mata Kuliah baru.");
+            System.out.println("Ketik [0] untuk Kembali ke Dashboard.");
+            System.out.print("Pilih aksi: ");
 
             String aksi = MissionUtil.getUserInput();
             if (aksi == null) {
                 aksi = "";
             }
 
-            try {
-                switch (aksi) {
-                    case "1":
-                        System.out.print("Masukkan ID Matkul: ");
-                        int idBaru = Integer.parseInt(MissionUtil.getUserInput());
+            if (aksi.equals("0")) {
+                diHalIni = false;
+            } else if (aksi.equalsIgnoreCase("T")) {
+                tambahMatkulBaru(mkManager);
+            } else {
+                try {
+                    int idTerpilih = Integer.parseInt(aksi);
+                    MataKuliah matkulTerpilih = mkManager.cariMatkulById(idTerpilih);
 
-                        try {
-                            if (repo.check(idBaru)) {
-                                throw new DataNotFoundException("Mata Kuliah dengan ID " + idBaru + " sudah ada, silahkan gunakan ID lain");
-                            }
-
-                            System.out.print("Masukkan Nama Matkul: ");
-                            String namaMatkul = MissionUtil.getUserInput();
-
-                            mkManager.tambah(idBaru, namaMatkul);
-                        } catch (DataNotFoundException e) {
-                            System.out.println("[Error] " + e.getMessage());
-                        }
-                        break;
-                    case "2":
-                        mkManager.tampilkanSemua();
-                        System.out.println("\nSilahkan tekan enter untuk melanjutkan..");
+                    if (matkulTerpilih != null) {
+                        halamanDetailMatkul(mkManager, matkulTerpilih);
+                    } else {
+                        System.out.println("Mata Kuliah dengan ID " + idTerpilih + " tidak ditemukan.");
+                        System.out.println("Tekan enter untuk coba lagi...");
                         MissionUtil.getUserInput();
-                        break;
-                    case "3":
-                        if (repo.isEmpty()) {
-                            System.out.println("Data kosong, silahkan tambah data terlebih dahulu");
-                            break;
-                        }
-                        System.out.print("Masukkan ID Mata Kuliah yang ingin diubah: ");
-                        int idUpdMatkul = Integer.parseInt(MissionUtil.getUserInput());
-                        try {
-                            if (!repo.check(idUpdMatkul)) {
-                                throw new DataNotFoundException("Mata Kuliah dengan ID " + idUpdMatkul + " tidak ditemukan");
-                            }
-
-                            System.out.println("Nama Mata Kuliah Sebelumnya [" + repo.findById(idUpdMatkul) + "]");
-                            System.out.print("Masukkan Nama Mata Kuliah Baru: ");
-                            String mkBaru = MissionUtil.getUserInput();
-                            mkManager.update(idUpdMatkul, mkBaru);
-                        } catch (DataNotFoundException e) {
-                            System.out.println("[Error] " + e.getMessage());
-                        }
-                        break;
-                    case "4":
-                        System.out.print("Masukkan ID Mata Kuliah yang ingin dihapus: ");
-                        int idDelMatkul = Integer.parseInt(MissionUtil.getUserInput());
-                        mkManager.hapus(idDelMatkul);
-                    default:
-                        System.out.println("Pilihan tidak valid!");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("[error] Input tidak valid!");
                 }
-            } catch (NumberFormatException e) {
-                System.out.println("[Error] Input tidak valid! Harap masukkan format angka untuk ID");
             }
+        }
+    }
+
+    // ==========================================
+    // MENU DETAIL MATA KULIAH
+    // ==========================================
+    private static void halamanDetailMatkul(MataKuliahManager mkManager, MataKuliah matkulTerpilih) {
+        boolean diDetail = true;
+        while (diDetail) {
+            System.out.println("\n========================================");
+            System.out.println(" DETAIL MATA KULIAH: " + matkulTerpilih.getNamaMatkul());
+            System.out.println("========================================");
+            System.out.println("1. Edit Nama Mata Kuliah");
+            System.out.println("2. Hapus Mata Kuliah");
+            System.out.println("3. Kelola Catatan");
+            System.out.println("4. Kelola Link");
+            System.out.println("5. Kelola Flashcard");
+            System.out.println("0. Kembali ke Daftar Matkul");
+            System.out.print("Pilih aksi: ");
+
+            String aksi = MissionUtil.getUserInput();
+
+            switch (aksi) {
+                case "1":
+                    System.out.print("Masukkan Nama Baru: ");
+                    String namaBaru = MissionUtil.getUserInput();
+                    mkManager.update(matkulTerpilih.getId(), namaBaru);
+                    break;
+                case "2":
+                    mkManager.hapus(matkulTerpilih.getId());
+                    diDetail = false; // Karena matkulnya udah dihapus, paksa user keluar dari detail
+                    break;
+                case "3":
+                    // HalamanCatatan.halamanCatatan(matkulTerpilih);
+                    System.out.println("Masuk ke catatan...");
+                    break;
+                case "4":
+                    // INI KUNCINYA: Lempar objek matkulnya ke HalamanLink
+                    HalamanLink.halamanLink(matkulTerpilih);
+                    break;
+                case "5":
+                    // HalamanFlashcard.halamanFlashcard(matkulTerpilih);
+                    System.out.println("Masuk ke flashcard...");
+                    break;
+                case "0":
+                    diDetail = false;
+                    break;
+                default:
+                    System.out.println("❌ Pilihan tidak valid!");
+            }
+        }
+    }
+
+    private static void tambahMatkulBaru(MataKuliahManager mkManager) {
+
+        try {
+            System.out.print("Masukkan ID Matkul: ");
+            int idBaru = Integer.parseInt(MissionUtil.getUserInput());
+
+            try {
+                if (mkManager.cariMatkulById(idBaru) != null) {
+                    throw new DataNotFoundException("Mata Kuliah dengan ID " + idBaru + " sudah ada, silahkan gunakan ID lain");
+                }
+
+                System.out.print("Masukkan Nama Matkul: ");
+                String namaMatkul = MissionUtil.getUserInput();
+
+                mkManager.tambah(idBaru, namaMatkul);
+
+            } catch (DataNotFoundException e) {
+                System.out.println("[Error] " + e.getMessage());
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("[Error] Input tidak valid! ID harus berupa angka.");
+        } catch (Exception e) {
+            System.out.println("[Error] Terjadi kesalahan saat menambah matkul.");
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.method.ayakan.ui;
 
+import com.method.ayakan.repository.LinkRepository;
 import com.method.ayakan.repository.MataKuliahRepository;
 import com.method.ayakan.service.CatatanManager;
 import com.method.ayakan.service.FlashcardManager;
@@ -23,11 +24,15 @@ public class MainTerminal {
     
     public static void main(String[] args) {
         
-        MataKuliahRepository repo = new MataKuliahRepository();
-        MataKuliahManager mkManager = new MataKuliahManager(repo);
+        
+        MataKuliahRepository repoMk = new MataKuliahRepository();
+        mkManager = new MataKuliahManager(repoMk);
+        
+        LinkRepository repoL = new LinkRepository();
+        
         CatatanManager catatanmanager = new CatatanManager();
         FlashcardManager flascardmanager = new FlashcardManager();
-        LinkManager linkmanager = new LinkManager();
+        LinkManager linkmanager = new LinkManager(repoL);
         
         jalankanAplikasi();
     }
@@ -41,9 +46,6 @@ public class MainTerminal {
         while(isRunning){
             System.out.println("1. Mata Kuliah");
             System.out.println("2. Tugas");
-            System.out.println("3. Catatan");
-            System.out.println("4. Flashcard");
-            System.out.println("5. Link");
             System.out.println("0. Keluar Aplikasi");
             System.out.print("Pilih menu: ");
             
@@ -54,19 +56,10 @@ public class MainTerminal {
             
             switch (pilihan){
                 case "1":
-                    mk.halamanMataKuliah(); 
+                    HalamanMataKuliah.halMatkul(mkManager);
                     break;
                 case "2":
                     halamanTugas(); 
-                    break;
-                case "3":
-                    halamanCatatan();
-                    break;
-                case "4":
-                    halamanFlashcard();
-                    break;
-                case "5":
-                    halamanLink();
                     break;
                 case "0":
                     System.out.println("Menyimpan data... Sampai jumpa!");
@@ -85,16 +78,6 @@ public class MainTerminal {
         
     }
     private static void halamanTugas() {
-        
-    }
-    private static void halamanCatatan() {
-        
-    }
-    private static void halamanFlashcard() {
-        
-    }
-    private static void halamanLink() {
-        
         
     }
     
