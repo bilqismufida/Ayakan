@@ -56,8 +56,6 @@ public abstract class Tugas implements ITugas{
         this.deskripsi = deskripsi;
     }
      
-    
-    
     @Override
     public void markCompleted(){
        this.status = true;
@@ -65,9 +63,5 @@ public abstract class Tugas implements ITugas{
     }
     
     @Override
-    public abstract String getInfo();
-    
-   
-       
-    
+    public abstract String getInfo(); 
 }
