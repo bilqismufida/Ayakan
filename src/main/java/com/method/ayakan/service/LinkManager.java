@@ -35,7 +35,7 @@ public class LinkManager {
                 c.getInfo();
             }
         }
-         cover.tableT();
+        cover.tableT();
     }
 
     public void update(MataKuliah matkul, int idLink, String judulBaru, String urlBaru) {
@@ -65,7 +65,7 @@ public class LinkManager {
             
             repo.delete(idLink);
             
-            System.out.println("🗑️ Link berhasil dihapus!");
+            System.out.println("Link berhasil dihapus!");
 
         } catch (DataNotFoundException e) {
             System.out.println("[Error] " + e.getMessage());

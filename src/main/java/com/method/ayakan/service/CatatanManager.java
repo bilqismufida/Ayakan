@@ -3,29 +3,40 @@ package com.method.ayakan.service;
 import com.method.ayakan.exception.DataNotFoundException;
 import com.method.ayakan.model.Catatan;
 import com.method.ayakan.model.MataKuliah;
+import com.method.ayakan.repository.CatatanRepository;
+import com.method.ayakan.ui.UITerminal;
+
 
 public class CatatanManager {
 
-    private int idCounter = 1; //otomatis nambah buat id
+    private CatatanRepository repo;
+    private static UITerminal cover;
 
-    public void tambahCatatan(MataKuliah matkul, String judulCatatan, String isiCatatan) {
-        int newId = idCounter++;
+    public CatatanManager(CatatanRepository repo) {
+        this.repo = repo;
+    }
+
+    public void tambah(MataKuliah matkul, int newId, String judulCatatan, String isiCatatan) {
         Catatan ctnBaru = new Catatan(newId, judulCatatan, isiCatatan);
+        
         matkul.getDaftarCatatan().put(newId, ctnBaru);
+        repo.save(ctnBaru);
         System.out.println("Catatan '" + judulCatatan + "' ditambahkan ke " + matkul.getNamaMatkul());
     }
 
-    public void tampilSemuaCatatan(MataKuliah matkul) {
+    public void tampilkanSemua(MataKuliah matkul) {
         System.out.println("\n----- CATATAN: " + matkul.getNamaMatkul() + " -----");
         if (matkul.getDaftarCatatan().isEmpty()) {
             System.out.println("Catatan kosong.");
-        }
-        for (Catatan c : matkul.getDaftarCatatan().values()) {
+        } else {
+            for (Catatan c : matkul.getDaftarCatatan().values()) {
             c.getInfo();
+            }
         }
+        cover.tableT();
     }
 
-    public void updateCatatan(MataKuliah matkul, int idCatatan, String judulBaru, String isiBaru) {
+    public void update(MataKuliah matkul, int idCatatan, String judulBaru, String isiBaru) {
         try {
             if (!matkul.getDaftarCatatan().containsKey(idCatatan)) {
                 throw new DataNotFoundException("Catatan ID " + idCatatan + " tidak ditemukan.");
@@ -40,7 +51,7 @@ public class CatatanManager {
         }
     }
 
-    public void hapusCatatan(MataKuliah matkul, int idCatatan) {
+    public void hapus(MataKuliah matkul, int idCatatan) {
         try {
             if (!matkul.getDaftarCatatan().containsKey(idCatatan)) {
                 throw new DataNotFoundException("Catatan ID " + idCatatan + " tidak ditemukan.");
