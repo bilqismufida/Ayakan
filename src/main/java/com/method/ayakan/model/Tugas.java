@@ -47,6 +47,14 @@ public abstract class Tugas implements ITugas{
     public LocalDate getDeadline() {
         return deadline;
     }
+
+    public void setJudul(String judul) {
+        this.judul = judul;
+    }
+
+    public void setDeskripsi(String deskripsi) {
+        this.deskripsi = deskripsi;
+    }
      
     
     
