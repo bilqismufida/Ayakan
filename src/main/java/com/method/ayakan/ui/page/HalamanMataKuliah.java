@@ -50,9 +50,7 @@ public class HalamanMataKuliah {
         }
     }
 
-    // ==========================================
     // MENU DETAIL MATA KULIAH
-    // ==========================================
     private static void halamanDetailMatkul(MataKuliahManager mkManager, MataKuliah matkulTerpilih) {
         boolean diDetail = true;
         while (diDetail) {
@@ -77,25 +75,19 @@ public class HalamanMataKuliah {
                     break;
                 case "2":
                     mkManager.hapus(matkulTerpilih.getId());
-                    diDetail = false; // Karena matkulnya udah dihapus, paksa user keluar dari detail
+                    diDetail = false; //mengeluarkan user dari halaman ini
                     break;
                 case "3":
-                    // HalamanCatatan.halamanCatatan(matkulTerpilih);
-                    System.out.println("Masuk ke catatan...");
+                    HalamanCatatan.halamanCatatan(matkulTerpilih);
                     break;
                 case "4":
-                    // INI KUNCINYA: Lempar objek matkulnya ke HalamanLink
                     HalamanLink.halamanLink(matkulTerpilih);
-                    break;
-                case "5":
-                    // HalamanFlashcard.halamanFlashcard(matkulTerpilih);
-                    System.out.println("Masuk ke flashcard...");
                     break;
                 case "0":
                     diDetail = false;
                     break;
                 default:
-                    System.out.println("❌ Pilihan tidak valid!");
+                    System.out.println("[error] Input tidak valid!");
             }
         }
     }
