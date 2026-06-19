@@ -77,15 +77,14 @@ public class HalamanMataKuliah {
                     break;
                 case "2":
                     mkManager.hapus(matkulTerpilih.getId());
-                    diDetail = false; // Karena matkulnya udah dihapus, paksa user keluar dari detail
+                    diDetail = false;
+                    mkManager.hapus(matkulTerpilih.getId());
+                    diDetail = false;
                     break;
                 case "3":
-                    // HalamanCatatan.halamanCatatan(matkulTerpilih);
-                    System.out.println("Masuk ke catatan...");
+                    HalamanCatatan.halamanCatatan(matkulTerpilih);
                     break;
                 case "4":
-                    // INI KUNCINYA: Lempar objek matkulnya ke HalamanLink
-                    HalamanLink.halamanLink(matkulTerpilih);
                     break;
                 case "5":
                     // HalamanFlashcard.halamanFlashcard(matkulTerpilih);
