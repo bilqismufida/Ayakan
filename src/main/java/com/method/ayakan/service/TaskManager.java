@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.time.LocalDate;
 import com.method.ayakan.model.*;
 import com.method.ayakan.exception.DataNotFoundException;
+import com.method.ayakan.model.Notif;
 /**
  *
  * @author UserID
@@ -42,14 +43,13 @@ public class TaskManager {
         return daftarTugas; 
     }
     
-    public void ubahStatusTugas(int index, boolean statusBaru) throws DataNotFoundException {
-
+public void ubahStatusTugas(int index, boolean statusBaru) throws DataNotFoundException {
         if (index < 0 || index >= daftarTugas.size()) {
             throw new DataNotFoundException(
                 "Gagal Mengubah Status: Tugas nomor "
                 + (index + 1)
                 + " tidak ditemukan!");
-    }
+        }
 
         Tugas tugas = daftarTugas.get(index);
 
@@ -58,5 +58,19 @@ public class TaskManager {
         } else {
             tugas.markIncompleted();
         }
+    }
+
+    public ArrayList<String> getNotifikasi() {
+        ArrayList<String> daftarNotif = new ArrayList<>();
+
+        for (Tugas tugas : daftarTugas) {
+            Notif notif = new Notif(tugas);
+
+            if (notif.perluDitampilkan()) {
+                daftarNotif.add(notif.getPesan());
+            }
+        }
+
+        return daftarNotif;
     }
 }
