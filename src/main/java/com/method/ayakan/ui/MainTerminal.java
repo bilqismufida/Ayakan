@@ -17,7 +17,6 @@ public class MainTerminal {
     private static Scanner scanner = new Scanner(System.in);
     private static MataKuliahManager mkManager;
     private static CatatanManager catatanmanager;
-    private static FlashcardManager flascardmanager;
     private static LinkManager linkmanager;
     private static TaskManager taskManager;
 
@@ -28,15 +27,19 @@ public class MainTerminal {
 
     public static void main(String[] args) {
 
+//        manggil matkul
         MataKuliahRepository repoMk = new MataKuliahRepository();
         mkManager = new MataKuliahManager(repoMk);
 
+        // manggil link
         LinkRepository repoL = new LinkRepository();
+        linkmanager = new LinkManager(repoL);
 
-        CatatanManager catatanmanager = new CatatanManager();
-        FlashcardManager flascardmanager = new FlashcardManager();
-        LinkManager linkmanager = new LinkManager(repoL);
-        TaskManager taskManager = new TaskManager();
+//        manggil cttn
+        CatatanRepository repoCatatan = new CatatanRepository();
+        catatanmanager = new CatatanManager(repoCatatan);
+
+        taskManager = new TaskManager();
 
         jalankanAplikasi();
     }
@@ -60,7 +63,6 @@ public class MainTerminal {
 
     private static void jalankanAplikasi() {
         boolean isRunning = true;
-
         cover.title();
         tampilkanDashboardTugas();
         tampilkanMenuUtama();
@@ -92,13 +94,6 @@ public class MainTerminal {
     }
 
     private static void tampilkanDashboardTugas() {
-
-        System.out.println("\n\n\n\n\n");
-        System.out.println("======================================================");
-        System.out.println("          DIGITAL TASK MANAGEMENT SYSTEM              ");
-        System.out.println("======================================================");
-        System.out.println("          ⚠️  DEADLINE TERDEKAT (MENDESAK)             ");
-        System.out.println("------------------------------------------------------");
 
         ArrayList<Tugas> daftarTugas = taskManager.tampilkanTugas();
 
