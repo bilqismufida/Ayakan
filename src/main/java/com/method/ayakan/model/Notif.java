@@ -5,30 +5,48 @@
 package com.method.ayakan.model;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 /**
  *
  * @author Nayaka
  */
+
 public class Notif {
-    public LocalDate deadline;
-    public String pesanNotif;
+     private Tugas tugas;
 
-    public Notif(LocalDate deadline) {
-        this.deadline = deadline;
+    public Notif(Tugas tugas){
+        this.tugas = tugas;
     }
-    
+
     public long hariLagi(){
-        return 0; //Belum final
+        return ChronoUnit.DAYS.between(
+                LocalDate.now(),
+                tugas.getDeadline());
     }
 
-    public LocalDate getDeadline() {
-        return deadline;
+    public boolean perluDitampilkan(){
+
+        int batas;
+
+        switch(tugas.getPriority()){
+            case "High":
+                batas = 7;
+                break;
+
+            case "Mid":
+                batas = 5;
+                break;
+
+            default:
+                batas = 3;
+        }
+
+        return hariLagi() <= batas && hariLagi() >= 0;
     }
 
-    public String getPesan() {
-        return pesanNotif;
+    public String getPesan(){
+        return "[" + tugas.getPriority() + "] Deadline tugas " + tugas.getJudul() + " tinggal " + hariLagi() + " hari lagi";
     }
-    
     
 }

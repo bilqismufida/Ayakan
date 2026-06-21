@@ -7,6 +7,7 @@ package com.method.ayakan.service;
 import java.util.ArrayList;
 import com.method.ayakan.model.Tugas;
 import com.method.ayakan.exception.DataNotFoundException;
+import com.method.ayakan.model.Notif;
 /**
  *
  * @author UserID
@@ -41,4 +42,20 @@ public class TaskManager {
     public ArrayList<Tugas> tampilkanTugas() { 
         return daftarTugas; 
     }
+    
+    public ArrayList<String> getNotifikasi() {
+        ArrayList<String> daftarNotif = new ArrayList<>();
+
+        for (Tugas tugas : daftarTugas) {
+
+            Notif notif = new Notif(tugas);
+
+            if (notif.perluDitampilkan()) {
+                daftarNotif.add(notif.getPesan());
+            }
+        }
+
+        return daftarNotif;
+    }
+    
 }
