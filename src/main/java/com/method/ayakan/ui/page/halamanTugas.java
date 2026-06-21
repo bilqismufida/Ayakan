@@ -4,37 +4,44 @@
  */
 package com.method.ayakan.ui.page;
 import java.util.Scanner;
-import java.util.ArrayList;
 import java.time.LocalDate;                      
 import java.time.format.DateTimeParseException;    
-
+import java.util.ArrayList;
 import com.method.ayakan.service.TaskManager;
 import com.method.ayakan.model.*;
 import com.method.ayakan.exception.DataNotFoundException;
+import java.time.temporal.ChronoUnit;
 
 public class halamanTugas {
     private TaskManager taskManager = new TaskManager();
     private Scanner scanner = new Scanner(System.in);
     
+    // JANGAN DI HAPUS
+    public halamanTugas(TaskManager taskManager) {
+    this.taskManager = taskManager; 
+    }
     public void tampilkanMenuTugas() {
         while (true) {
             System.out.println("\n--- HALAMAN TUGAS ---");
             System.out.println("1. Tampilkan Semua Tugas");
-            System.out.println("2. Tambah Tugas Baru");
-            System.out.println("3. Edit Tugas");
-            System.out.println("4. Hapus Tugas");
+            System.out.println("2. Tampilkan Deadline Terdekat");
+            System.out.println("3. Tambah Tugas Baru");
+            System.out.println("4. Edit Tugas");
+            System.out.println("5. Hapus Tugas");
             System.out.println("0. Kembali ke Main Menu");
-            System.out.print("Pilih aksi (0-4): ");
+            System.out.print("Pilih aksi (0-5): ");
             
             String pilihan = scanner.nextLine();
             
             if (pilihan.equals("1")) {
                 tampilkanDaftar();
-            } else if (pilihan.equals("2")) {
+            } else if (pilihan.equals("2")){
+                tampilkanDeadlineTerdekat();
+            }else if (pilihan.equals("3")) {
                 inputTambahTugas();
-            } else if (pilihan.equals("3")) {
-                inputEditTugas();
             } else if (pilihan.equals("4")) {
+                inputEditTugas();
+            } else if (pilihan.equals("5")) {
                 inputHapusTugas();
             } else if (pilihan.equals("0")) {
                 System.out.println("Keluar dari Halaman Tugas...");
@@ -195,5 +202,46 @@ public class halamanTugas {
         } catch (DataNotFoundException e) {
             System.out.println(e.getMessage());
         }
+    }
+    
+    private static void urutkanBerdasarkanDeadline(ArrayList<Tugas> daftarTugas) {
+
+        for (int i = 0; i < daftarTugas.size() - 1; i++) {
+
+            for (int j = 0; j < daftarTugas.size() - i - 1; j++) {
+
+                if (daftarTugas.get(j).getDeadline()
+                        .isAfter(daftarTugas.get(j + 1).getDeadline())) {
+
+                    Tugas temp = daftarTugas.get(j);
+                    daftarTugas.set(j, daftarTugas.get(j + 1));
+                    daftarTugas.set(j + 1, temp);
+                }
+            }
+        }
+    }
+    
+    public void tampilkanDeadlineTerdekat() {
+        System.out.println("+------------------------------------------------------+");
+        System.out.println("|          DEADLINE TERDEKAT (MENDESAK)                |");
+        System.out.println("+------------------------------------------------------+");
+        System.out.println("| No |  Judul Tugas                    | Sisa Hari     |");
+        System.out.println("+----+---------------------------------+---------------+");
+
+        ArrayList<Tugas> daftarTugas = taskManager.tampilkanTugas();
+
+        if (daftarTugas.isEmpty()) {
+            System.out.println("|          Tidak ada tugas saat ini.                   |");
+        } else {
+            urutkanBerdasarkanDeadline(daftarTugas);
+            LocalDate hariIni = LocalDate.now();
+            int nomor = 1;
+            for (Tugas t : daftarTugas) {
+                long sisaHari = ChronoUnit.DAYS.between(hariIni, t.getDeadline());
+                System.out.printf("| %-2d | %-31s | H-%-12d|%n", nomor, t.getJudul(), sisaHari);
+                nomor++;
+            }
+        }
+         System.out.println("+----+---------------------------------+---------------+");
     }
 }
