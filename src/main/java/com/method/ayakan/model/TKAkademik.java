@@ -36,6 +36,13 @@ public class TKAkademik extends TugasKelompok{
     }
 
     @Override
+    public void markIncompleted() {
+        super.markIncompleted(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+    
+    
+
+    @Override
     public String getInfo() {
         return super.getInfo()+ "\nMata Kuliah: " + namaMataKuliah;
     }

@@ -44,7 +44,6 @@ public class MainTerminal {
 
     private static void jalankanAplikasi() {
         boolean isRunning = true;
-        haltugas.tampilkanDeadlineTerdekat();
         while (isRunning) {
             System.out.println("\n+==============================================+");
             System.out.println("|       DIGITAL TASK MANAGEMENT SYSTEM         |");

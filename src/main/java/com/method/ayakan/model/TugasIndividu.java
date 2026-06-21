@@ -18,6 +18,18 @@ public class TugasIndividu extends Tugas {
     public TugasIndividu(String judul, String deskripsi, boolean status, String priority, LocalDate deadline){
       super(judul, deskripsi, status, priority, deadline);  
     }
+
+    @Override
+    public void markCompleted() {
+        super.markCompleted(); 
+    }
+
+    @Override
+    public void markIncompleted() {
+        super.markIncompleted(); 
+    }
+    
+    
     
     @Override
     public String getInfo(){

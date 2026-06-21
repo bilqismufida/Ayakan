@@ -37,6 +37,13 @@ public class TugasKelompok extends Tugas {
         super.markCompleted();       
     }
 
+    @Override
+    public void markIncompleted() {
+        super.markIncompleted(); 
+    }
+    
+    
+
     public String getNamaKel() {
         return namaKel;
     }
