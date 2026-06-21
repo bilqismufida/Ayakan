@@ -36,7 +36,7 @@ public class MainTerminal {
         catatanmanager = new CatatanManager(repoCatatan);
 
         taskManager = new TaskManager();
-        haltugas = new halamanTugas(taskManager);
+        haltugas = new halamanTugas(taskManager, mkManager);
 
         jalankanAplikasi();
     }
