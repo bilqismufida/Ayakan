@@ -1,32 +1,33 @@
 package com.method.ayakan.ui.page;
 
 import com.method.ayakan.exception.DataNotFoundException;
+import com.method.ayakan.model.Catatan;
 import com.method.ayakan.model.MataKuliah;
 import com.method.ayakan.repository.CatatanRepository;
 import com.method.ayakan.service.CatatanManager;
 import com.method.ayakan.ui.MissionUtil;
-import com.method.ayakan.ui.UITerminal;
 
 public class HalamanCatatan {
 
     private static CatatanRepository repoCatatan = new CatatanRepository();
-
     private static CatatanManager catatanManager = new CatatanManager(repoCatatan);
 
     public static void halamanCatatan(MataKuliah matkulTerpilih) {
         boolean diHalIni = true;
 
         while (diHalIni) {
-            System.out.println("\n======= MENU CATATAN =======");
-            System.out.println("Mata Kuliah: " + matkulTerpilih.getNamaMatkul());
-            System.out.println("----------------------------");
-
-            System.out.println("1. Tambah Catatan");
-            System.out.println("2. Tampilkan Semua Catatan");
-            System.out.println("3. Update Catatan");
-            System.out.println("4. Hapus Catatan");
-            System.out.println("0. Kembali ke Detail Matkul");
-            System.out.print("Pilih menu: ");
+            // Desain menu kotak-kotak ala dashboard utama lu
+            System.out.println("\n+==============================================+");
+            System.out.printf("| %-44s |%n", "MENU CATATAN: " + matkulTerpilih.getNamaMatkul().toUpperCase());
+            System.out.println("+==============================================+");
+            System.out.println("|  [1]  Tambah Catatan                         |");
+            System.out.println("|  [2]  Tampilkan Semua Catatan                |");
+            System.out.println("|  [3]  Update Catatan                         |");
+            System.out.println("|  [4]  Hapus Catatan                          |");
+            System.out.println("+----------------------------------------------+");
+            System.out.println("|  [0]  Kembali ke Detail Matkul               |");
+            System.out.println("+==============================================+");
+            System.out.print("  Pilih menu: ");
 
             String aksi = MissionUtil.getUserInput();
             if (aksi == null) {
@@ -36,57 +37,67 @@ public class HalamanCatatan {
             try {
                 switch (aksi) {
                     case "1":
-                        System.out.println("\n# MENU TAMBAH MATA KULIAH #");
-                        System.out.print("Masukkan ID Catatan: ");
-                        int idBaru = Integer.parseInt(MissionUtil.getUserInput());
+                        System.out.println("\n# TAMBAH CATATAN #");
+                        System.out.print("Masukkan Judul Catatan: ");
+                        String judul = MissionUtil.getUserInput();
 
-                        try {
-                            if (repoCatatan.check(idBaru)) {
-                                throw new DataNotFoundException("Catatan dengan ID " + idBaru + " sudah ada, silahkan gunakan ID lain");
-                            }
+                        System.out.print("Masukkan Isi: ");
+                        String isi = MissionUtil.getUserInput();
 
-                            System.out.print("Masukkan Judul Catatan: ");
-                            String judul = MissionUtil.getUserInput();
-
-                            System.out.print("Masukkan Isi: ");
-                            String isi = MissionUtil.getUserInput();
-
-                            catatanManager.tambah(matkulTerpilih, idBaru, judul, isi);
-                        } catch (DataNotFoundException e) {
-                            System.out.println("[Error] " + e.getMessage());
-                        }
+                        catatanManager.tambah(matkulTerpilih, judul, isi);
                         break;
 
                     case "2":
                         catatanManager.tampilkanSemua(matkulTerpilih);
-                        System.out.println("\nSilahkan tekan enter untuk melanjutkan..");
+                        System.out.print("\nSilakan tekan enter untuk melanjutkan..");
                         MissionUtil.getUserInput();
                         break;
 
                     case "3":
-                        System.out.println("\n# MENU EDIT MATA KULIAH #");
+                        if (catatanManager.isCatatanKosong(matkulTerpilih)) {
+                            System.out.println("\n[Info] Data masih kosong! Belum ada Catatan yang bisa diubah.");
+                            System.out.print("Silakan tekan Enter untuk kembali ke menu...");
+                            MissionUtil.getUserInput();
+                            break;
+                        }
+
+                        System.out.println("\n# UPDATE CATATAN #");
                         catatanManager.tampilkanSemua(matkulTerpilih);
 
                         System.out.print("Masukkan ID Catatan yang ingin diubah: ");
                         int idUpdCatatan = Integer.parseInt(MissionUtil.getUserInput());
+                        
                         try {
                             if (!repoCatatan.check(idUpdCatatan)) {
                                 throw new DataNotFoundException("Catatan dengan ID " + idUpdCatatan + " tidak ditemukan");
                             }
 
-                            System.out.println("Judul Lama: " + repoCatatan.findById(idUpdCatatan));
+                            Catatan cLama = repoCatatan.findById(idUpdCatatan);
+                            System.out.println("----------------------------------------");
+                            System.out.println("Judul Lama : " + cLama.getJudulCatatan());
+                            System.out.println("Isi Lama   : " + cLama.getIsiCatatan());
+                            System.out.println("----------------------------------------");
+
                             System.out.print("Masukkan Judul Baru: ");
                             String judulBaru = MissionUtil.getUserInput();
                             System.out.print("Masukkan Isi Baru: ");
-                            String urlBaru = MissionUtil.getUserInput();
+                            String isiBaru = MissionUtil.getUserInput();
 
-                            catatanManager.update(matkulTerpilih, idUpdCatatan, judulBaru, urlBaru);
+                            catatanManager.update(matkulTerpilih, idUpdCatatan, judulBaru, isiBaru);
                         } catch (DataNotFoundException e) {
                             System.out.println("[Error] " + e.getMessage());
                         }
                         break;
 
                     case "4":
+                        if (catatanManager.isCatatanKosong(matkulTerpilih)) {
+                            System.out.println("\n[Info] Data masih kosong! Belum ada Catatan yang bisa dihapus.");
+                            System.out.print("Silakan tekan Enter untuk kembali ke menu...");
+                            MissionUtil.getUserInput();
+                            break;
+                        }
+
+                        System.out.println("\n# HAPUS CATATAN #");
                         catatanManager.tampilkanSemua(matkulTerpilih);
                         System.out.print("Masukkan ID Catatan yang ingin dihapus: ");
                         int idDel = Integer.parseInt(MissionUtil.getUserInput());

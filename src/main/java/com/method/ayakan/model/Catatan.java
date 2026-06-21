@@ -1,6 +1,6 @@
 package com.method.ayakan.model;
 
-public class Catatan {
+public class Catatan implements IInfo{
     int id;
     String judulCatatan;
 

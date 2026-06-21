@@ -1,6 +1,6 @@
 package com.method.ayakan.model;
 
-public class Link {
+public class Link implements IInfo{
 
     int id;
     String judulLink;
