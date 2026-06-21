@@ -21,41 +21,25 @@ public class MataKuliahManager {
     }
 
     public void tampilkanSemua() {
-        System.out.println("\n+-----------------------------------------------------------------+");
-        System.out.printf("| %-63s |%n", "DAFTAR MATA KULIAH");
-        System.out.println("+-----------------------------------------------------------------+");
-        System.out.println("| ID | Mata Kuliah                                                |");
-        System.out.println("+----+------------------------------------------------------------+");
+        // Sesuaikan garis pembatas agar cukup lebar untuk semua kolom
+        System.out.println("\n+----+------------------------------+-------------+----------------+");
+        System.out.printf("| %-62s |%n", "DAFTAR MATA KULIAH");
+        System.out.println("+----+------------------------------+-------------+----------------+");
+        System.out.println("| ID | Mata Kuliah                  | Jml Catatan | Jml Link       |");
+        System.out.println("+----+------------------------------+-------------+----------------+");
 
         if (repo.isEmpty()) {
-            System.out.println("| Belum ada mata kuliah                                           |");
-        } else {
-            for (MataKuliah mk : repo.findAll().values()) {
-                System.out.printf("| %-2d | %-58s |%n", mk.getId(), mk.getNamaMatkul());
-            }
-        }
-        System.out.println("+----+------------------------------------------------------------+");
-    }
-
-    public void tampilkanRingkasan() {
-        System.out.println("\n+-------------------------------------------------------------+");
-        System.out.println("|                       RINGKASAN DATA                        |");
-        System.out.println("+-------------------------------------------------------------+");
-        System.out.println("| Nama Matkul                  | Jml Catatan | Jml Link       |");
-        System.out.println("+------------------------------+-------------+----------------+");
-
-        if (repo.isEmpty()) {
-            System.out.println("| Belum ada mata kuliah                                       |");
+            System.out.println("| Belum ada mata kuliah yang terdaftar                           |");
         } else {
             for (MataKuliah mk : repo.findAll().values()) {
                 int jmlCatatan = mk.getDaftarCatatan().size();
                 int jmlLink = mk.getDaftarLink().size();
 
-                System.out.printf("| %-28s | %-11d | %-14d |%n",
-                        mk.getNamaMatkul(), jmlCatatan, jmlLink);
+                System.out.printf("| %-2d | %-28s | %-11d | %-14d |%n",
+                        mk.getId(), mk.getNamaMatkul(), jmlCatatan, jmlLink);
             }
         }
-        System.out.println("+------------------------------+-------------+----------------+");
+        System.out.println("+----+------------------------------+-------------+----------------+");
     }
 
     public void update(int idTarget, String namaMatkulBaru) {

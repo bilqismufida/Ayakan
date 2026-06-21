@@ -66,7 +66,7 @@ public class HalamanCatatan {
 
                         System.out.print("Masukkan ID Catatan yang ingin diubah: ");
                         int idUpdCatatan = Integer.parseInt(MissionUtil.getUserInput());
-                        
+
                         try {
                             if (!repoCatatan.check(idUpdCatatan)) {
                                 throw new DataNotFoundException("Catatan dengan ID " + idUpdCatatan + " tidak ditemukan");
@@ -101,6 +101,14 @@ public class HalamanCatatan {
                         catatanManager.tampilkanSemua(matkulTerpilih);
                         System.out.print("Masukkan ID Catatan yang ingin dihapus: ");
                         int idDel = Integer.parseInt(MissionUtil.getUserInput());
+
+                        System.out.print("Yakin ingin menghapus tugas ini? (Y/N): ");
+                        String konfirmasi = MissionUtil.getUserInput();
+
+                        if (!konfirmasi.equalsIgnoreCase("Y")) {
+                            System.out.println("Penghapusan dibatalkan.");
+                            return;
+                        }
 
                         catatanManager.hapus(matkulTerpilih, idDel);
                         break;

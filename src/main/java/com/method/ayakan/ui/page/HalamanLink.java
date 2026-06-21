@@ -65,7 +65,7 @@ public class HalamanLink {
 
                         System.out.print("Masukkan ID Link yang ingin diubah: ");
                         int idUpdLink = Integer.parseInt(MissionUtil.getUserInput());
-                        
+
                         try {
                             if (!repoLink.check(idUpdLink)) {
                                 throw new DataNotFoundException("Link dengan ID " + idUpdLink + " tidak ditemukan");
@@ -100,6 +100,14 @@ public class HalamanLink {
                         linkManager.tampilkanSemua(matkulTerpilih);
                         System.out.print("Masukkan ID Link yang ingin dihapus: ");
                         int idDel = Integer.parseInt(MissionUtil.getUserInput());
+
+                        System.out.print("Yakin ingin menghapus tugas ini? (Y/N): ");
+                        String konfirmasi = MissionUtil.getUserInput();
+
+                        if (!konfirmasi.equalsIgnoreCase("Y")) {
+                            System.out.println("Penghapusan dibatalkan.");
+                            return;
+                        }
 
                         linkManager.hapus(matkulTerpilih, idDel);
                         break;

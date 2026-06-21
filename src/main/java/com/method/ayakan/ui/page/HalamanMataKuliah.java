@@ -11,7 +11,6 @@ public class HalamanMataKuliah {
         boolean diHalIni = true;
 
         while (diHalIni) {
-            mkManager.tampilkanRingkasan();
             System.out.println("\n+==============================================+");
             System.out.println("|              MENU MATA KULIAH                |");
             System.out.println("+==============================================+");
@@ -68,7 +67,7 @@ public class HalamanMataKuliah {
                         mkManager.tampilkanSemua();
                         System.out.print("Masukkan ID Mata Kuliah yang ingin diubah: ");
                         int idUpd = Integer.parseInt(MissionUtil.getUserInput());
-                        
+
                         MataKuliah matkulLama = mkManager.cariMatkulById(idUpd);
                         if (matkulLama == null) {
                             throw new DataNotFoundException("Mata Kuliah dengan ID " + idUpd + " tidak ditemukan");
@@ -95,7 +94,15 @@ public class HalamanMataKuliah {
                         mkManager.tampilkanSemua();
                         System.out.print("Masukkan ID Mata Kuliah yang ingin dihapus: ");
                         int idDel = Integer.parseInt(MissionUtil.getUserInput());
-                        
+
+                        System.out.print("Yakin ingin menghapus tugas ini? (Y/N): ");
+                        String konfirmasi = MissionUtil.getUserInput();
+
+                        if (!konfirmasi.equalsIgnoreCase("Y")) {
+                            System.out.println("Penghapusan dibatalkan.");
+                            return;
+                        }
+
                         mkManager.hapus(idDel);
                         break;
 
@@ -116,7 +123,7 @@ public class HalamanMataKuliah {
 
     private static void halamanDetailMatkul(MataKuliah matkulTerpilih) {
         boolean diDetail = true;
-        
+
         while (diDetail) {
             System.out.println("\n+==============================================+");
             System.out.printf("| %-44s |%n", "DETAIL MATKUL: " + matkulTerpilih.getNamaMatkul().toUpperCase());
@@ -129,7 +136,9 @@ public class HalamanMataKuliah {
             System.out.print("  Pilih aksi: ");
 
             String aksi = MissionUtil.getUserInput();
-            if (aksi == null) aksi = "";
+            if (aksi == null) {
+                aksi = "";
+            }
 
             switch (aksi) {
                 case "1":
