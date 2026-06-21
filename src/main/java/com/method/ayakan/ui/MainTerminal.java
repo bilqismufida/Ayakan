@@ -3,13 +3,8 @@ package com.method.ayakan.ui;
 import java.util.Scanner;
 
 import com.method.ayakan.model.Tugas;
-import com.method.ayakan.repository.CatatanRepository;
-import com.method.ayakan.repository.LinkRepository;
-import com.method.ayakan.repository.MataKuliahRepository;
-import com.method.ayakan.service.CatatanManager;
-import com.method.ayakan.service.LinkManager;
-import com.method.ayakan.service.MataKuliahManager;
-import com.method.ayakan.service.TaskManager;
+import com.method.ayakan.repository.*;
+import com.method.ayakan.service.*;
 import com.method.ayakan.ui.page.HalamanMataKuliah;
 import com.method.ayakan.ui.page.halamanTugas;
 
