@@ -1,6 +1,7 @@
 package com.method.ayakan.model;
 
-public class Link {
+public class Link implements IInfo{
+
     int id;
     String judulLink;
     String url;
@@ -32,13 +33,13 @@ public class Link {
     }
 
     public void getInfo() {
-        System.out.println("["+id+"] " + judulLink + " - " + url);
+        System.out.println("[" + id + "] \tJudul:" + judulLink + "\n\tURL: " + url);
+
     }
 
     @Override
     public String toString() {
         return "Link{" + "id=" + id + ", judulLink=" + judulLink + ", url=" + url + '}';
     }
-    
-    
+
 }

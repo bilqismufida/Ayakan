@@ -39,6 +39,6 @@ public class MataKuliah {
 
     @Override
     public String toString() {
-        return id + "\t | \t" + namaMatkul;
+        return "| " + id + " | " + namaMatkul;
     }
 }

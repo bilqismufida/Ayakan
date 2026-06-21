@@ -1,6 +1,6 @@
 package com.method.ayakan.model;
 
-public class Catatan {
+public class Catatan implements IInfo{
     int id;
     String judulCatatan;
 
@@ -33,7 +33,7 @@ public class Catatan {
     }
     
     public void getInfo(){
-        System.out.println("["+ id +"]" + judulCatatan + " - " + isiCatatan);
+        System.out.println("["+ id +"] \tJudul:" + judulCatatan + "\n\tIsi Catatan: " + isiCatatan);
     }
 
     @Override

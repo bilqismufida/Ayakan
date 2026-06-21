@@ -4,47 +4,51 @@ import com.method.ayakan.exception.DataNotFoundException;
 import com.method.ayakan.model.Catatan;
 import com.method.ayakan.model.MataKuliah;
 import com.method.ayakan.repository.CatatanRepository;
-import com.method.ayakan.ui.UITerminal;
-
 
 public class CatatanManager {
 
     private CatatanRepository repo;
-    private static UITerminal cover;
-
+    private int idCounter = 1; 
+    
     public CatatanManager(CatatanRepository repo) {
         this.repo = repo;
     }
 
-    public void tambah(MataKuliah matkul, int newId, String judulCatatan, String isiCatatan) {
+    public void tambah(MataKuliah matkul, String judulCatatan, String isiCatatan) {
+        int newId = idCounter++;
         Catatan ctnBaru = new Catatan(newId, judulCatatan, isiCatatan);
         
         matkul.getDaftarCatatan().put(newId, ctnBaru);
         repo.save(ctnBaru);
-        System.out.println("Catatan '" + judulCatatan + "' ditambahkan ke " + matkul.getNamaMatkul());
+        System.out.println("[ [Sukses] Catatan '" + judulCatatan + "' berhasil ditambahkan ke " + matkul.getNamaMatkul() + " ]");
     }
 
     public void tampilkanSemua(MataKuliah matkul) {
-        System.out.println("\n----- CATATAN: " + matkul.getNamaMatkul() + " -----");
+        System.out.println("\n+-----------------------------------------------------------------+");
+        System.out.printf("| %-63s |%n", "DAFTAR CATATAN: " + matkul.getNamaMatkul().toUpperCase());
+        System.out.println("+-----------------------------------------------------------------+");
+        System.out.println("| ID | Judul Catatan        | Isi Catatan                         |");
+        System.out.println("+----+----------------------+-------------------------------------+");
+        
         if (matkul.getDaftarCatatan().isEmpty()) {
-            System.out.println("Catatan kosong.");
+            System.out.println("| Belum ada catatan                                               |");
         } else {
             for (Catatan c : matkul.getDaftarCatatan().values()) {
-            c.getInfo();
+                System.out.printf("| %-2d | %-20s | %-35s |%n", c.getId(), c.getJudulCatatan(), c.getIsiCatatan());
             }
         }
-        cover.tableT();
+        System.out.println("+----+----------------------+-------------------------------------+");
     }
 
     public void update(MataKuliah matkul, int idCatatan, String judulBaru, String isiBaru) {
         try {
             if (!matkul.getDaftarCatatan().containsKey(idCatatan)) {
-                throw new DataNotFoundException("Catatan ID " + idCatatan + " tidak ditemukan.");
+                throw new DataNotFoundException("Catatan ID " + idCatatan + " tidak ditemukan di mata kuliah ini.");
             }
             Catatan c = matkul.getDaftarCatatan().get(idCatatan);
             c.setJudulCatatan(judulBaru);
             c.setIsiCatatan(isiBaru);
-            System.out.println("Catatan berhasil diupdate");
+            System.out.println("[Sukses] Catatan berhasil diupdate!");
 
         } catch (DataNotFoundException e) {
             System.out.println("[Error] " + e.getMessage());
@@ -57,10 +61,15 @@ public class CatatanManager {
                 throw new DataNotFoundException("Catatan ID " + idCatatan + " tidak ditemukan.");
             }
             matkul.getDaftarCatatan().remove(idCatatan);
-            System.out.println("Catatan berhasil dihapus");
+            repo.delete(idCatatan);
+            System.out.println("[Sukses] Catatan berhasil dihapus!");
 
         } catch (DataNotFoundException e) {
             System.out.println("[Error] " + e.getMessage());
         }
+    }
+
+    public boolean isCatatanKosong(MataKuliah matkul) {
+        return matkul.getDaftarCatatan().isEmpty();
     }
 }

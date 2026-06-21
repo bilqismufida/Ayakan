@@ -1,13 +1,12 @@
 package com.method.ayakan.ui;
 
-import com.method.ayakan.repository.LinkRepository;
+import java.util.Scanner;
 
-import com.method.ayakan.model.*;
-import com.method.ayakan.service.*;
+import com.method.ayakan.model.Tugas;
 import com.method.ayakan.repository.*;
+import com.method.ayakan.service.*;
 import com.method.ayakan.ui.page.HalamanMataKuliah;
 import com.method.ayakan.ui.page.halamanTugas;
-import java.util.Scanner;
 
 public class MainTerminal {
     private static Scanner scanner = new Scanner(System.in);
@@ -59,7 +58,7 @@ public class MainTerminal {
 
             switch (pilihan) {
                 case "1":
-                    HalamanMataKuliah.halMatkul(mkManager);
+                    HalamanMataKuliah.tampilkanMenu(mkManager);
                     break;
                 case "2":
                     haltugas.tampilkanMenuTugas();
@@ -69,7 +68,7 @@ public class MainTerminal {
                     isRunning = false;
                     break;
                 default:
-                    System.out.println("❌ Pilihan tidak valid. Tekan Enter untuk mencoba lagi.");
+                    System.out.println("Pilihan tidak valid. Tekan Enter untuk mencoba lagi.");
                     MissionUtil.getUserInput();
             }
         }
