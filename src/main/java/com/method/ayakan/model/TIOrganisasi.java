@@ -22,6 +22,18 @@ public class TIOrganisasi extends TugasIndividu {
     }
 
     @Override
+    public void markIncompleted() {
+        super.markIncompleted(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+
+    @Override
+    public void markCompleted() {
+        super.markCompleted(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+    
+    
+
+    @Override
     public String getInfo() {
         return super.getInfo() + "\nOrganisasi: " + namaOrganisasi;
     }

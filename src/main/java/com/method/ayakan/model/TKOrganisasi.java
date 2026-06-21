@@ -32,6 +32,13 @@ public class TKOrganisasi extends TugasKelompok{
     }
 
     @Override
+    public void markIncompleted() {
+        super.markIncompleted(); 
+    }
+    
+    
+
+    @Override
     public String getInfo() {
         return super.getInfo()+ "\nOrganisasi: " + namaOrganisasi;
         

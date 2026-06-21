@@ -48,13 +48,22 @@ public abstract class Tugas implements ITugas{
         return deadline;
     }
 
-    public void setJudul(String judul) {
-        this.judul = judul;
+
+    public void setPriority(String priority) {
+        this.priority = priority;
     }
 
-    public void setDeskripsi(String deskripsi) {
-        this.deskripsi = deskripsi;
+    public void setDeadline(LocalDate deadline) {
+        this.deadline = deadline;
     }
+
+    @Override
+    public void markIncompleted(){
+        this.status = false;
+        System.out.println("Tugas '" + judul + "' diubah menjadi belum selesai!");
+
+    }
+
      
     @Override
     public void markCompleted(){
