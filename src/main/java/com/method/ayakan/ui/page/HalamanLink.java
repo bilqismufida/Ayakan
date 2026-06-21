@@ -17,8 +17,11 @@ public class HalamanLink {
         boolean diHalIni = true;
 
         while (diHalIni) {
-            UITerminal.h1("LINK - " + matkulTerpilih.getNamaMatkul());
 
+            
+            System.out.println("\n======= MENU LINK =======");
+            System.out.println("Mata Kuliah: "+ matkulTerpilih.getNamaMatkul());
+            System.out.println("----------------------------");
             System.out.println("1. Tambah Link");
             System.out.println("2. Tampilkan Semua Link");
             System.out.println("3. Update Link");

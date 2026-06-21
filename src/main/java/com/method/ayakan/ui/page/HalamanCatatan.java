@@ -17,7 +17,9 @@ public class HalamanCatatan {
         boolean diHalIni = true;
 
         while (diHalIni) {
-            UITerminal.h1("CATATAN - " + matkulTerpilih.getNamaMatkul());
+            System.out.println("\n======= MENU CATATAN =======");
+            System.out.println("Mata Kuliah: " + matkulTerpilih.getNamaMatkul());
+            System.out.println("----------------------------");
 
             System.out.println("1. Tambah Catatan");
             System.out.println("2. Tampilkan Semua Catatan");
@@ -34,6 +36,7 @@ public class HalamanCatatan {
             try {
                 switch (aksi) {
                     case "1":
+                        System.out.println("\n# MENU TAMBAH MATA KULIAH #");
                         System.out.print("Masukkan ID Catatan: ");
                         int idBaru = Integer.parseInt(MissionUtil.getUserInput());
 
@@ -61,6 +64,7 @@ public class HalamanCatatan {
                         break;
 
                     case "3":
+                        System.out.println("\n# MENU EDIT MATA KULIAH #");
                         catatanManager.tampilkanSemua(matkulTerpilih);
 
                         System.out.print("Masukkan ID Catatan yang ingin diubah: ");

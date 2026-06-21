@@ -22,7 +22,7 @@ public class LinkManager {
         
         repo.save(linkBaru);
         
-        System.out.println("Link '" + judul + "' berhasil ditambahkan ke " + matkul.getNamaMatkul());
+        System.out.println("[ [Success] Link '" + judul + "' berhasil ditambahkan ke " + matkul.getNamaMatkul());
     }
 
     public void tampilkanSemua(MataKuliah matkul) {
@@ -41,7 +41,7 @@ public class LinkManager {
     public void update(MataKuliah matkul, int idLink, String judulBaru, String urlBaru) {
         try {
             if (!matkul.getDaftarLink().containsKey(idLink)) {
-                throw new DataNotFoundException("Link ID " + idLink + " tidak ditemukan di mata kuliah ini.");
+                throw new DataNotFoundException("[ [Warning] Link ID " + idLink + " tidak ditemukan di mata kuliah ini.");
             }
 
             Link c = matkul.getDaftarLink().get(idLink);
@@ -49,7 +49,7 @@ public class LinkManager {
             c.setUrl(urlBaru);
             
             
-            System.out.println("Link berhasil diupdate");
+            System.out.println("[ [Success] Link berhasil diupdate");
 
         } catch (DataNotFoundException e) {
             System.out.println("[Error] " + e.getMessage());

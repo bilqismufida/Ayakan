@@ -33,7 +33,7 @@ public class Catatan {
     }
     
     public void getInfo(){
-        System.out.println("["+ id +"]" + judulCatatan + " - " + isiCatatan);
+        System.out.println("["+ id +"] \tJudul:" + judulCatatan + "\n\tIsi Catatan: " + isiCatatan);
     }
 
     @Override

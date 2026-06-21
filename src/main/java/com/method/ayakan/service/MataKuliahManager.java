@@ -3,13 +3,11 @@ package com.method.ayakan.service;
 import com.method.ayakan.exception.DataNotFoundException;
 import com.method.ayakan.model.MataKuliah;
 import com.method.ayakan.repository.MataKuliahRepository;
-import com.method.ayakan.ui.UITerminal;
 import java.util.List;
 
 public class MataKuliahManager {
 
     private MataKuliahRepository repo;
-    private static UITerminal cover;
 
     public MataKuliahManager(MataKuliahRepository repo) {
         this.repo = repo;
@@ -18,19 +16,22 @@ public class MataKuliahManager {
     public void tambah(int id, String namaMatkul) {
         MataKuliah mk = new MataKuliah(id, namaMatkul);
         repo.save(mk);
-        System.out.println("Mata Kuliah " + namaMatkul + " berhasil ditambahkan.");
+        System.out.println("[ [Sukses] Mata Kuliah " + namaMatkul + " berhasil ditambahkan ]");
     }
 
     public void tampilkanSemua() {
-        cover.tableH("Mata Kuliah");
+        System.out.println("+------------------------------------------------------+");
+        System.out.println("|                 DAFTAR MATA KULIAH                   |");
+        System.out.println("+------------------------------------------------------+");
+        System.out.println("| ID |  Mata Kuliah                                    |");
+        System.out.println("+----+---------------------------------+---------------+");
         if (repo.findAll().isEmpty()) {
-            System.out.println("Belum ada mata kuliah");
+        System.out.println("| Belum ada mata kuliah                                |");
             return;
         }
         for (MataKuliah mk : repo.findAll().values()) {
             System.out.println(mk.toString());
         }
-        cover.tableT();
 
     }
 

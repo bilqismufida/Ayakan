@@ -4,22 +4,23 @@ package com.method.ayakan.ui.page;
 import com.method.ayakan.exception.DataNotFoundException;
 import com.method.ayakan.model.MataKuliah;
 import com.method.ayakan.service.MataKuliahManager;
+import com.method.ayakan.ui.ColorTerminal;
 import com.method.ayakan.ui.MissionUtil;
 import com.method.ayakan.ui.UITerminal;
 
 public class HalamanMataKuliah {
+    
+    ColorTerminal msg = new ColorTerminal();
 
     public static void halMatkul(MataKuliahManager mkManager) {
         boolean diHalIni = true;
 
         while (diHalIni) {
-            UITerminal.h1("DAFTAR MATA KULIAH");
-
             mkManager.tampilkanSemua();
-            System.out.println("----------------------------------------");
-            System.out.println("Ketik [ID Matkul] untuk melihat detail dan mengelola fitur.");
-            System.out.println("Ketik [T] untuk Tambah Mata Kuliah baru.");
-            System.out.println("Ketik [0] untuk Kembali ke Dashboard.");
+            System.out.println("+------------------------------------------------------+");
+            System.out.println("[ID Matkul] untuk detail Matkul.");
+            System.out.println("[T] Tambah Mata Kuliah.");
+            System.out.println("[0] Kembali ke Dashboard.");
             System.out.print("Pilih aksi: ");
 
             String aksi = MissionUtil.getUserInput();
@@ -61,7 +62,6 @@ public class HalamanMataKuliah {
             System.out.println("2. Hapus Mata Kuliah");
             System.out.println("3. Kelola Catatan");
             System.out.println("4. Kelola Link");
-            System.out.println("5. Kelola Flashcard");
             System.out.println("0. Kembali ke Daftar Matkul");
             System.out.print("Pilih aksi: ");
 
@@ -95,12 +95,17 @@ public class HalamanMataKuliah {
     private static void tambahMatkulBaru(MataKuliahManager mkManager) {
 
         try {
+            System.out.println("\n# MENU TAMBAH MATA KULIAH #");
             System.out.print("Masukkan ID Matkul: ");
             int idBaru = Integer.parseInt(MissionUtil.getUserInput());
 
             try {
                 if (mkManager.cariMatkulById(idBaru) != null) {
                     throw new DataNotFoundException("Mata Kuliah dengan ID " + idBaru + " sudah ada, silahkan gunakan ID lain");
+                }
+                
+                if (idBaru <= 0) {
+                   throw new IllegalArgumentException("ID Mata Kuliah tidak boleh < 0 atau 0");
                 }
 
                 System.out.print("Masukkan Nama Matkul: ");
@@ -109,6 +114,8 @@ public class HalamanMataKuliah {
                 mkManager.tambah(idBaru, namaMatkul);
 
             } catch (DataNotFoundException e) {
+                System.out.println("[Error] " + e.getMessage());
+            } catch (IllegalArgumentException e) {
                 System.out.println("[Error] " + e.getMessage());
             }
         } catch (NumberFormatException e) {
