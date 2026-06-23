@@ -34,14 +34,15 @@ public class halamanTugas {
             System.out.println("+==============================================+");
             System.out.println("|  [1] Tampilkan Semua Tugas                   |");
             System.out.println("|  [2] Deadline Terdekat                       |");
-            System.out.println("|  [3] Tambah Tugas Baru                       |");
-            System.out.println("|  [4] Edit Tugas                              |");
-            System.out.println("|  [5] Ubah Status Tugas                       |");
-            System.out.println("|  [6] Hapus Tugas                             |");
+            System.out.println("|  [3] Tampilkan Tugas Kelompok                |"); // Menu baru
+            System.out.println("|  [4] Tambah Tugas Baru                       |");
+            System.out.println("|  [5] Edit Tugas                              |");
+            System.out.println("|  [6] Ubah Status Tugas                       |");
+            System.out.println("|  [7] Hapus Tugas                             |");
             System.out.println("+----------------------------------------------+");
             System.out.println("|  [0] Kembali ke Main Menu                    |");
             System.out.println("+==============================================+");
-            System.out.print("Pilih Nomor(0-6) : ");
+            System.out.print("Pilih Nomor(0-7) : ");
 
             String pilihan = MissionUtil.getUserInput();
 
@@ -53,15 +54,18 @@ public class halamanTugas {
                     tampilkanDeadlineTerdekat();
                     break;
                 case "3":
-                    inputTambahTugas();
+                    tampilkanDaftarTugasKelompok();
                     break;
                 case "4":
-                    inputEditTugas();
+                    inputTambahTugas();
                     break;
                 case "5":
-                    inputUbahStatusTugas();
+                    inputEditTugas();
                     break;
                 case "6":
+                    inputUbahStatusTugas();
+                    break;
+                case "7":
                     inputHapusTugas();
                     break;
                 case "0":
@@ -159,8 +163,8 @@ public class halamanTugas {
     private Tugas buatTugasIndividu(String judul, String deskripsi, String priority, LocalDate deadline, boolean statusAwal) {
 
         System.out.println("\nPilih Kategori Tugas Individu:");
-        System.out.println("1. Akademik (TIAkademik)");
-        System.out.println("2. Organisasi (TIOrganisasi)");
+        System.out.println("1. Akademik");
+        System.out.println("2. Organisasi");
         System.out.print("Pilihan (1-2): ");
         String subPilihan = MissionUtil.getUserInput();
 
@@ -597,6 +601,46 @@ public class halamanTugas {
         }
         System.out.println("+----+---------------------------------+-----------------+-----------------+");
         System.out.println("\nTekan ENTER untuk kembali...");
+        MissionUtil.getUserInput();
+    }
+
+    private void tampilkanDaftarTugasKelompok() {
+        System.out.println("\n=== DAFTAR TUGAS KELOMPOK ===");
+
+        ArrayList<Tugas> list = taskManager.tampilkanTugas();
+        boolean adaTugasKelompok = false;
+        int nomor = 1;
+
+        for (Tugas t : list) {
+//            ngefilter tugas kelompok
+            if (t instanceof TugasKelompok) {
+                adaTugasKelompok = true;
+                TugasKelompok tk = (TugasKelompok) t;
+
+                System.out.println(nomor + ".\tJudul tugas: " + tk.getJudul());
+                System.out.println("\tNama kelompok: " + tk.getNamaKel());
+                System.out.println("\tNama anggota:");
+
+//                looping buat nyetak list nama anggota biar gag berantakan
+                ArrayList<String> listAnggota = tk.getAnggota();
+                if (listAnggota != null && !listAnggota.isEmpty()) {
+                    for (int i = 0; i < listAnggota.size(); i++) {
+                        System.out.println("\t" + (i + 1) + ". " + listAnggota.get(i));
+                    }
+                } else {
+                    System.out.println("\t- (Belum ada anggota)");
+                }
+
+                System.out.println();
+                nomor++;
+            }
+        }
+
+        if (!adaTugasKelompok) {
+            System.out.println("Belum ada tugas kelompok saat ini.");
+        }
+
+        System.out.println("Tekan ENTER untuk kembali...");
         MissionUtil.getUserInput();
     }
 }
