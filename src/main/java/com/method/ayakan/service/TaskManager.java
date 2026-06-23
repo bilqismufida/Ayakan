@@ -9,27 +9,32 @@ import java.time.LocalDate;
 import com.method.ayakan.model.*;
 import com.method.ayakan.exception.DataNotFoundException;
 import com.method.ayakan.model.Notif;
+
 /**
  *
  * @author UserID
  */
 public class TaskManager {
+
     private ArrayList<Tugas> daftarTugas = new ArrayList<>();
-    
-    public void tambahTugas(Tugas t) { 
-        daftarTugas.add(t); 
+
+    public void tambahTugas(Tugas t) {
+        daftarTugas.add(t);
     }
+    
 
-    public void editTugas(int index,String priorityBaru,LocalDate deadlineBaru) throws DataNotFoundException{
-     if (index < 0 || index >= daftarTugas.size()) {
-        throw new DataNotFoundException("Gagal Edit: Tugas nomor " + (index + 1) + " tidak ditemukan!");
-     }
+    public void editTugas(int index, String judulBaru, String descBaru, String priorityBaru, LocalDate deadlineBaru) throws DataNotFoundException {
+        if (index < 0 || index >= daftarTugas.size()) {
+            throw new DataNotFoundException("Gagal Edit: Tugas nomor " + (index + 1) + " tidak ditemukan!");
+        }
 
-     Tugas t = daftarTugas.get(index);
-
-     t.setPriority(priorityBaru);
-     t.setDeadline(deadlineBaru);
-}
+        Tugas t = daftarTugas.get(index);
+        
+        t.setJudul(judulBaru);
+        t.setDeskripsi(descBaru);
+        t.setPriority(priorityBaru);
+        t.setDeadline(deadlineBaru);
+    }
 
     public void hapusTugas(int index) throws DataNotFoundException {
         if (index >= 0 && index < daftarTugas.size()) {
@@ -39,16 +44,16 @@ public class TaskManager {
         }
     }
 
-    public ArrayList<Tugas> tampilkanTugas() { 
-        return daftarTugas; 
+    public ArrayList<Tugas> tampilkanTugas() {
+        return daftarTugas;
     }
-    
-public void ubahStatusTugas(int index, boolean statusBaru) throws DataNotFoundException {
+
+    public void ubahStatusTugas(int index, boolean statusBaru) throws DataNotFoundException {
         if (index < 0 || index >= daftarTugas.size()) {
             throw new DataNotFoundException(
-                "Gagal Mengubah Status: Tugas nomor "
-                + (index + 1)
-                + " tidak ditemukan!");
+                    "Gagal Mengubah Status: Tugas nomor "
+                    + (index + 1)
+                    + " tidak ditemukan!");
         }
 
         Tugas tugas = daftarTugas.get(index);

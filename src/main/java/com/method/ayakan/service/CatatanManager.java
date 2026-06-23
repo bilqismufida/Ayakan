@@ -45,6 +45,8 @@ public class CatatanManager {
             if (!matkul.getDaftarCatatan().containsKey(idCatatan)) {
                 throw new DataNotFoundException("Catatan ID " + idCatatan + " tidak ditemukan di mata kuliah ini.");
             }
+            
+//            manggil data cttn sesuai id dari param
             Catatan c = matkul.getDaftarCatatan().get(idCatatan);
             c.setJudulCatatan(judulBaru);
             c.setIsiCatatan(isiBaru);

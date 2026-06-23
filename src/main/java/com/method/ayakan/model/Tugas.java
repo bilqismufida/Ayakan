@@ -48,6 +48,17 @@ public abstract class Tugas implements ITugas{
         return deadline;
     }
 
+//    setter
+
+    public void setJudul(String judul) {
+        this.judul = judul;
+    }
+
+    public void setDeskripsi(String deskripsi) {
+        this.deskripsi = deskripsi;
+    }
+  
+    
 
     public void setPriority(String priority) {
         this.priority = priority;

@@ -41,7 +41,7 @@ public class halamanTugas {
             System.out.println("+----------------------------------------------+");
             System.out.println("|  [0] Kembali ke Main Menu                    |");
             System.out.println("+==============================================+");
-            System.out.print("Pilih Nomor(0-5) : ");
+            System.out.print("Pilih Nomor(0-6) : ");
 
             String pilihan = MissionUtil.getUserInput();
 
@@ -165,7 +165,7 @@ public class halamanTugas {
         String subPilihan = MissionUtil.getUserInput();
 
         if (subPilihan.equals("1")) {
-            String matkul = pilihMatkulUntukTugas();
+            String matkul = pilihMatkulTugas();
             return new TIAkademik(matkul, judul, deskripsi, statusAwal, priority, deadline);
         } else if (subPilihan.equals("2")) {
             System.out.print("Nama Organisasi: ");
@@ -188,7 +188,7 @@ public class halamanTugas {
         String subPilihan = MissionUtil.getUserInput();
 
         if (subPilihan.equals("1")) {
-            String matkul = pilihMatkulUntukTugas();
+            String matkul = pilihMatkulTugas();
             return new TKAkademik(matkul, namaKel, anggota, judul, deskripsi, statusAwal, priority, deadline);
         } else if (subPilihan.equals("2")) {
             System.out.print("Nama Organisasi: ");
@@ -198,7 +198,7 @@ public class halamanTugas {
         return null;
     }
 
-    private String pilihMatkulUntukTugas() {
+    private String pilihMatkulTugas() {
         if (mkManager.isEmpty()) {
             System.out.println("[Info] Belum ada Mata Kuliah yang terdaftar. Matkul akan dikosongkan (-).");
             return "-";
@@ -322,13 +322,118 @@ public class halamanTugas {
 
             int index = nomor - 1;
 
+//            manggil semua isi tugas berdasarkan index/nomor tugas yg dipilih 
+            Tugas tugasLama = list.get(index);
+
+            String judulBaru = tugasLama.getJudul();
+            String descBaru = tugasLama.getDeskripsi();
+            String priorityBaru = tugasLama.getDeskripsi();
+            LocalDate deadlineBaru = tugasLama.getDeadline();
+
+//            nemuin(?) apakah tugasnya akademik/org/kelmpok
+            boolean isAkademik = (tugasLama instanceof TIAkademik || tugasLama instanceof TKAkademik);
+            boolean isOrganisasi = (tugasLama instanceof TIOrganisasi || tugasLama instanceof TKOrganisasi);
+            boolean isKelompok = (tugasLama instanceof TKAkademik || tugasLama instanceof TKOrganisasi);
+
             System.out.println("\n=== EDIT TUGAS ===");
 
-            String priorityBaru = inputPriority();
-            LocalDate deadlineBaru = inputDeadline();
+            System.out.print(
+                    "1. Judul Tugas\n"
+                    + "2. Deskripsi Tugas\n"
+                    + "3. Priority Tugas\n"
+                    + "4. Deadline Tugas\n");
 
-            taskManager.editTugas(index, priorityBaru, deadlineBaru);
+//            nentuin tampilan di menu berdasarkan boolean di atas
+            if (isAkademik) {
+                System.out.println("5. Mata Kuliah");
+            }
+            if (isOrganisasi) {
+                System.out.println("5. Nama Organisasi");
+            }
+            if (isKelompok) {
+                System.out.println("6. Nama Kelompok");
+                System.out.println("7. Daftar Anggota Kelompok");
+            }
 
+            System.out.println("0. Batal");
+
+            System.out.println("Pilih atribut yang mau diganti:");
+            int pilih = Integer.parseInt(MissionUtil.getUserInput());
+
+            switch (pilih) {
+                case 0:
+                    System.out.println("Edit tugas dibatalkan.");
+                    break;
+                case 1:
+                    System.out.print("Masukkan judul baru:");
+                    judulBaru = MissionUtil.getUserInput();
+                    break;
+                case 2:
+                    System.out.print("Masukkan deskripsi baru:");
+                    descBaru = MissionUtil.getUserInput();
+                    break;
+                case 3:
+                    priorityBaru = inputPriority();
+                    break;
+                case 4:
+                    deadlineBaru = inputDeadline();
+                    break;
+                case 5:
+                    if (isAkademik) {
+                        String matkulBaru = pilihMatkulTugas();
+                        if (tugasLama instanceof TIAkademik) {
+//                            proses casting; tergantung dari jenis tugas di tugasnyaa
+                            ((TIAkademik) tugasLama).setNamaMataKuliah(matkulBaru);
+                        } else if (tugasLama instanceof TKAkademik) {
+                            ((TKAkademik) tugasLama).setNamaMataKuliah(matkulBaru);
+                        }
+                    } else if (isOrganisasi) {
+                        System.out.print("Masukkan Nama Organisasi baru: ");
+                        String orgBaru = MissionUtil.getUserInput();
+                        if (tugasLama instanceof TIOrganisasi) {
+                            ((TIOrganisasi) tugasLama).setNamaOrganisasi(orgBaru);
+                        } else if (tugasLama instanceof TKOrganisasi) {
+                            ((TKOrganisasi) tugasLama).setNamaOrganisasi(orgBaru);
+                        }
+                    } else {
+                        System.out.println("Pilihan tidak valid!");
+                        return;
+                    }
+                    break;
+                case 6:
+                    if (isKelompok) {
+                        System.out.print("Masukkan nama kelompok baru:");
+                        String kelBaru = MissionUtil.getUserInput();
+                        if (tugasLama instanceof TKAkademik) {
+//                            setter class tugaskelompok
+                            ((TKAkademik) tugasLama).setNamaKel(kelBaru);
+                        } else if (tugasLama instanceof TKOrganisasi) {
+                            ((TKOrganisasi) tugasLama).setNamaKel(kelBaru);
+                        }
+                    } else {
+                        System.out.println("Pilihan tidak valid!");
+                        return;
+                    }
+                    break;
+                case 7:
+                    if (isKelompok) {
+                        ArrayList<String> anggotaBaru = inputAnggotaKelompok();
+                        if (tugasLama instanceof TKAkademik) {
+//                            pake setter dari class tugaskelompok
+                            ((TKAkademik) tugasLama).setAnggota(anggotaBaru);
+                        } else if (tugasLama instanceof TKOrganisasi) {
+                            ((TKOrganisasi) tugasLama).setAnggota(anggotaBaru);
+                        }
+                    } else {
+                        System.out.println("Pilihan tidak valid!");
+                        return;
+                    }
+                    break;
+                default:
+                    throw new AssertionError();
+            }
+
+            taskManager.editTugas(index, judulBaru, descBaru, priorityBaru, deadlineBaru);
             System.out.println("\nBerhasil! Tugas telah diperbarui.");
 
         } catch (NumberFormatException e) {

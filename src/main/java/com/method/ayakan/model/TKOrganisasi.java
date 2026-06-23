@@ -47,5 +47,11 @@ public class TKOrganisasi extends TugasKelompok{
     public String getNamaOrganisasi(){
         return namaOrganisasi;
     }
+
+    public void setNamaOrganisasi(String namaOrganisasi) {
+        this.namaOrganisasi = namaOrganisasi;
+    }
+    
+    
     
 }
