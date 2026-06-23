@@ -20,6 +20,10 @@ public class TIAkademik extends TugasIndividu {
     public String getNamaMataKuliah() {
         return namaMataKuliah;
     }
+
+    public void setNamaMataKuliah(String namaMataKuliah) {
+        this.namaMataKuliah = namaMataKuliah;
+    }
     
     @Override
     public void markCompleted() {

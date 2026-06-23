@@ -20,6 +20,12 @@ public class TKAkademik extends TugasKelompok{
         return namaMataKuliah;
     }
 
+    public void setNamaMataKuliah(String namaMataKuliah) {
+        this.namaMataKuliah = namaMataKuliah;
+    }
+    
+    
+
     @Override
     public ArrayList<String> getAnggota() {
         return super.getAnggota(); 

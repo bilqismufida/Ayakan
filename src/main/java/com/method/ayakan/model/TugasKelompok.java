@@ -42,13 +42,19 @@ public class TugasKelompok extends Tugas {
         super.markIncompleted(); 
     }
     
-    
-
     public String getNamaKel() {
         return namaKel;
     }
 
     public ArrayList<String> getAnggota() {
         return anggota;
+    }
+
+    public void setNamaKel(String namaKel) {
+        this.namaKel = namaKel;
+    }
+
+    public void setAnggota(ArrayList<String> anggota) {
+        this.anggota = anggota;
     }
 }
