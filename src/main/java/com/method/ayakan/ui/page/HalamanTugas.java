@@ -14,14 +14,14 @@ import com.method.ayakan.service.MataKuliahManager;
 import java.time.temporal.ChronoUnit;
 import com.method.ayakan.ui.MissionUtil;
 
-public class halamanTugas {
+public class HalamanTugas {
 
     private final TaskManager taskManager;
 
     private final MataKuliahManager mkManager;
 
     // JANGAN DI HAPUS
-    public halamanTugas(TaskManager taskManager, MataKuliahManager mkManager) {
+    public HalamanTugas(TaskManager taskManager, MataKuliahManager mkManager) {
         this.taskManager = taskManager;
         this.mkManager = mkManager;
     }

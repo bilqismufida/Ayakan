@@ -1,23 +1,25 @@
 package com.method.ayakan.ui;
 
-import java.util.Scanner;
+import com.method.ayakan.model.MataKuliah;
 
 import com.method.ayakan.model.Tugas;
 import com.method.ayakan.repository.*;
 import com.method.ayakan.service.*;
 import com.method.ayakan.ui.page.HalamanMataKuliah;
-import com.method.ayakan.ui.page.halamanTugas;
+import com.method.ayakan.ui.page.HalamanTugas;
+import com.method.ayakan.ui.page.HalamanNotif;
 
 public class MainTerminal {
-    private static Scanner scanner = new Scanner(System.in);
     private static MataKuliahManager mkManager;
     private static CatatanManager catatanmanager;
     private static LinkManager linkmanager;
     private static TaskManager taskManager;
-    private static halamanTugas haltugas;
-
+    private static HalamanTugas haltugas;
+    private static HalamanNotif halNotif;
+    
     //panggil menu terminal
     private static UITerminal cover;
+    
     private static HalamanMataKuliah mk;
     private static Iterable<Tugas> daftarTugas;
 
@@ -36,7 +38,13 @@ public class MainTerminal {
         catatanmanager = new CatatanManager(repoCatatan);
 
         taskManager = new TaskManager();
-        haltugas = new halamanTugas(taskManager, mkManager);
+        haltugas = new HalamanTugas(taskManager, mkManager);
+        
+        halNotif = new HalamanNotif(taskManager);
+ 
+        taskManager = new TaskManager();
+
+        inisialisasiDataAwal();
 
         jalankanAplikasi();
     }
@@ -49,6 +57,7 @@ public class MainTerminal {
             System.out.println("+==============================================+");
             System.out.println("|  [1]  Mata Kuliah                            |");
             System.out.println("|  [2]  Tugas                                  |");
+            System.out.println("|  [3]  Notifikasi                             |");
             System.out.println("+----------------------------------------------+");
             System.out.println("|  [0]  Keluar Aplikasi                        |");
             System.out.println("+==============================================+");
@@ -63,6 +72,9 @@ public class MainTerminal {
                 case "2":
                     haltugas.tampilkanMenuTugas();
                     break;
+                case "3":
+                    halNotif.tampilkanMenuNotif();
+                    break;
                 case "0":
                     System.out.println("Menyimpan data... Sampai jumpa!");
                     isRunning = false;
@@ -73,4 +85,51 @@ public class MainTerminal {
             }
         }
     }
+    // Inisialisasi mata kuliah, catatan, serta link
+    private static void inisialisasiDataAwal() {
+        //Inisialisasi MatKul
+        mkManager.tambah("DPBO");
+        mkManager.tambah("Statistika");
+        mkManager.tambah("Matematika Diskrit");
+
+        MataKuliah dpbo =
+            mkManager.cariMatkulById(1);
+
+        MataKuliah statistika =
+            mkManager.cariMatkulById(2);
+
+        MataKuliah matdis =
+            mkManager.cariMatkulById(3);
+
+        // Inisialisasi Catatan
+
+        catatanmanager.tambah(
+            matdis,
+            "Sifat-sifat Graf",
+            "Sirkuit Euler: \n" +
+            "a. Graf terhubung\n" +
+            "b. Semua simpul berderajat genap\n" +
+            "c. Melewati setiap sisi tepat sekali dan kembali ke simpul awal.\n" +
+            "\n" +
+            "Lintasan Euler:\n" +
+            "a. Graf terhubung\n" +
+            "b. 2 simpul berderajat ganjil\n" +
+            "c. Melewati setiap sisi tepat sekali dan tidak kembali ke simpul awal\n" +
+            "\n" +
+            "Sirkuit Hamilton:\n" +
+            "a. Graf terhubung\n" +
+            "b. Melewati setiap simpul tepat sekali dan kembali ke simpul awal\n" +
+            "\n" +
+            "Lintasan Hamilton:\n" +
+            "a. Graf terhubung\n" +
+            "b. Melewati setiap simpul tepat sekali dan tidak Kembali ke simpul awal.");
+
+        // Inisialisasi link
+
+            linkmanager.tambah(
+                dpbo,
+                "Materi Encapsulation",
+                "https://www.youtube.com/watch?v=eboNNUADeIc");
+            
+    } 
 }

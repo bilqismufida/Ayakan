@@ -5,14 +5,15 @@ import com.method.ayakan.model.MataKuliah;
 import com.method.ayakan.repository.MataKuliahRepository;
 
 public class MataKuliahManager {
-
+    
     private MataKuliahRepository repo;
     private int idCounter = 1;
-
+    
     public MataKuliahManager(MataKuliahRepository repo) {
         this.repo = repo;
+        
     }
-
+    
     public void tambah(String namaMatkul) {
         int idOtomatis = idCounter++;
         MataKuliah mk = new MataKuliah(idOtomatis, namaMatkul);
