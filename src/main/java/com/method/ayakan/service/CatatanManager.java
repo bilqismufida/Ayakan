@@ -5,8 +5,8 @@ import com.method.ayakan.model.Catatan;
 import com.method.ayakan.model.MataKuliah;
 import com.method.ayakan.repository.CatatanRepository;
 
-public class CatatanManager {
-
+public class CatatanManager {   
+    
     private CatatanRepository repo;
     private int idCounter = 1; 
     

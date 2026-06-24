@@ -17,11 +17,72 @@ import com.method.ayakan.model.Notif;
 public class TaskManager {
 
     private ArrayList<Tugas> daftarTugas = new ArrayList<>();
+    
+    public TaskManager(){
+        daftarTugas = new ArrayList<>();
+        
+        inisialisasiTugas();
+    }
 
     public void tambahTugas(Tugas t) {
         daftarTugas.add(t);
     }
     
+    private void inisialisasiTugas() {
+        
+        ArrayList<String> anggotaDPBO = new ArrayList<>();
+
+        anggotaDPBO.add("Raya");
+        anggotaDPBO.add("Trye");
+        anggotaDPBO.add("Aulia");
+
+        daftarTugas.add(
+            new TKAkademik(
+                "DPBO",
+                "Kelompok A",
+                anggotaDPBO,
+                "Tugas Besar DPBO",
+                "Membuat aplikasi Prioritas Tugas",
+                false,
+                "High",
+                LocalDate.now().plusDays(5)));
+
+        daftarTugas.add(
+            new TIAkademik(
+                "Statistika",
+                "Laporan Uji Hipotesis",
+                "Mengerjakan laporan sesuai panduan",
+                false,
+                "Medium",
+                LocalDate.now().plusDays(4)));
+
+        daftarTugas.add(
+            new TIOrganisasi(
+                "Staff Muda HMRPL",
+                "Studi Banding",
+                "Bertatap hadapan dengan kating tanpa armband",
+                false,
+                "Medium",
+                LocalDate.now().plusDays(3)));
+
+        daftarTugas.add(
+            new TIAkademik(
+                "Matematika Diskrit",
+                "Kuis Minggu-13",
+                "Mengerjakan soal kuis",
+                false,
+                "Low",
+                LocalDate.now().plusDays(2)));
+
+        daftarTugas.add(
+            new TIAkademik(
+                "DPBO",
+                "Kuis Minggu-10",
+                "Mengerjakan soal kuis",
+                false,
+                "Low",
+                LocalDate.now().plusDays(1)));
+    }
 
     public void editTugas(int index, String judulBaru, String descBaru, String priorityBaru, LocalDate deadlineBaru) throws DataNotFoundException {
         if (index < 0 || index >= daftarTugas.size()) {
@@ -63,19 +124,5 @@ public class TaskManager {
         } else {
             tugas.markIncompleted();
         }
-    }
-
-    public ArrayList<String> getNotifikasi() {
-        ArrayList<String> daftarNotif = new ArrayList<>();
-
-        for (Tugas tugas : daftarTugas) {
-            Notif notif = new Notif(tugas);
-
-            if (notif.perluDitampilkan()) {
-                daftarNotif.add(notif.getPesan());
-            }
-        }
-
-        return daftarNotif;
     }
 }
