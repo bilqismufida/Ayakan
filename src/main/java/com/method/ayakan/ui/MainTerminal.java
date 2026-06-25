@@ -1,13 +1,12 @@
 package com.method.ayakan.ui;
 
-import com.method.ayakan.model.MataKuliah;
 
-import com.method.ayakan.model.Tugas;
+import com.method.ayakan.model.*;
 import com.method.ayakan.repository.*;
 import com.method.ayakan.service.*;
-import com.method.ayakan.ui.page.HalamanMataKuliah;
-import com.method.ayakan.ui.page.HalamanTugas;
-import com.method.ayakan.ui.page.HalamanNotif;
+import com.method.ayakan.ui.page.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class MainTerminal {
     private static MataKuliahManager mkManager;
@@ -131,5 +130,26 @@ public class MainTerminal {
                 "Materi Encapsulation",
                 "https://www.youtube.com/watch?v=eboNNUADeIc");
             
+        // Inisialisasi anggota kelompok    
+            ArrayList<String> anggotaA = new ArrayList<>();
+            anggotaA.add("Raya");
+            anggotaA.add("Trye");
+            anggotaA.add("Intan");
+            anggotaA.add("Bilqis");
+            anggotaA.add("Nayaka");
+        
+        // Inisialisasi Tugas
+            
+            taskManager.tambahTugas(new TIAkademik(
+            "Statistika", "Laporan Uji Hipotesis", "Mengerjakan laporan", false, "Medium",
+            LocalDate.of(2026, 07,01)));
+            
+            taskManager.tambahTugas(new TKAkademik(
+            "DPBO", "Kelompok A", anggotaA,"Tugas Besar DPBO", "Membuat aplikasi task management",
+            false, "High", LocalDate.of(2026, 07, 03)));
+            
+            taskManager.tambahTugas(new TIOrganisasi(
+            "Staff Muda HMRPL", "Studi Banding", "Bertatap muka dengan kating",
+            false, "Low", LocalDate.of(2026, 06, 29)));
     } 
 }

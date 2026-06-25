@@ -32,7 +32,7 @@ public class TIAkademik extends TugasIndividu {
 
     @Override
     public void markIncompleted() {
-        super.markIncompleted(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        super.markIncompleted(); 
     }
     
     @Override
