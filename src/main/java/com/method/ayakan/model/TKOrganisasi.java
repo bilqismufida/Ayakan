@@ -8,48 +8,25 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 
-public class TKOrganisasi extends TugasKelompok{
-    private String namaOrganisasi;
+public class TKOrganisasi extends TugasKelompok {
+    private String namaOrg;
 
-    public TKOrganisasi(String namaOrganisasi, String namaKel, ArrayList<String> anggota, String judul, String deskripsi, boolean status, String priority, LocalDate deadline) {
+    public TKOrganisasi(String namaOrg, String namaKel, ArrayList<String> anggota, String judul, String deskripsi, boolean status, String priority, LocalDate deadline) {
         super(namaKel, anggota, judul, deskripsi, status, priority, deadline);
-        this.namaOrganisasi = namaOrganisasi;
+        this.namaOrg = namaOrg;
     }
 
-    @Override
-    public ArrayList<String> getAnggota() {
-        return super.getAnggota(); 
-    }
-
-    @Override
-    public String getNamaKel() {
-        return super.getNamaKel(); 
-    }
-
-    @Override
-    public void markCompleted() {
-        super.markCompleted(); 
-    }
-
-    @Override
-    public void markIncompleted() {
-        super.markIncompleted(); 
-    }
-    
     @Override
     public String getInfo() {
-        return super.getInfo()+ "\nOrganisasi: " + namaOrganisasi;
-        
-    }
-    
-    public String getNamaOrganisasi(){
-        return namaOrganisasi;
+        return "[Tugas Kelompok Organisasi]\nJudul: " + getJudul() + "\nOrganisasi: " + namaOrg + "\nKelompok: " + getNamaKel();
     }
 
-    public void setNamaOrganisasi(String namaOrganisasi) {
-        this.namaOrganisasi = namaOrganisasi;
+    @Override
+    public String getInformasiTambahan() {
+        if (namaOrg != null) {
+            return namaOrg;
+        } else {
+            return "-";
+        }
     }
-    
-    
-    
 }

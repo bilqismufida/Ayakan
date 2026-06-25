@@ -3,40 +3,33 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.method.ayakan.model;
-
-/**
- *
- * @author RayaRahma
- */
 import java.time.LocalDate;
+
 public class TIAkademik extends TugasIndividu {
-    private String namaMataKuliah;
+    private MataKuliah matkul;
 
-    public TIAkademik(String namaMataKuliah, String judul, String deskripsi, boolean status, String priority, LocalDate deadline) {
+    public TIAkademik(MataKuliah matkul, String judul, String deskripsi, boolean status, String priority, LocalDate deadline) {
         super(judul, deskripsi, status, priority, deadline);
-        this.namaMataKuliah = namaMataKuliah; 
+        this.matkul = matkul;
     }
 
-    public String getNamaMataKuliah() {
-        return namaMataKuliah;
-    }
-
-    public void setNamaMataKuliah(String namaMataKuliah) {
-        this.namaMataKuliah = namaMataKuliah;
-    }
-    
-    @Override
-    public void markCompleted() {
-        super.markCompleted(); 
-    }
-
-    @Override
-    public void markIncompleted() {
-        super.markIncompleted(); 
-    }
-    
     @Override
     public String getInfo() {
-        return super.getInfo() + "\nMata Kuliah: " + getNamaMataKuliah();
+        String nama;
+        if (matkul != null) {
+            nama = matkul.getNamaMatkul();
+        } else {
+            nama = "-";
+        }
+        return "[Tugas Individu Akademik]\nJudul: " + getJudul() + "\nMatkul: " + nama;
+    }
+
+    @Override
+    public String getInformasiTambahan() {
+        if (matkul != null) {
+            return matkul.getNamaMatkul();
+        } else {
+            return "-";
+        }
     }
 }

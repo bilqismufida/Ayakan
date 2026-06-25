@@ -8,50 +8,31 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 
-public class TKAkademik extends TugasKelompok{
-    private String namaMataKuliah;
+public class TKAkademik extends TugasKelompok {
+    private MataKuliah matkul;
 
-    public TKAkademik(String namaMataKuliah, String namaKel, ArrayList<String> anggota, String judul, String deskripsi, boolean status, String priority, LocalDate deadline) {
+    public TKAkademik(MataKuliah matkul, String namaKel, ArrayList<String> anggota, String judul, String deskripsi, boolean status, String priority, LocalDate deadline) {
         super(namaKel, anggota, judul, deskripsi, status, priority, deadline);
-        this.namaMataKuliah = namaMataKuliah;
+        this.matkul = matkul;
     }
-
-    public String getNamaMataKuliah() {
-        return namaMataKuliah;
-    }
-
-    public void setNamaMataKuliah(String namaMataKuliah) {
-        this.namaMataKuliah = namaMataKuliah;
-    }
-    
-    
-
-    @Override
-    public ArrayList<String> getAnggota() {
-        return super.getAnggota(); 
-    }
-
-    @Override
-    public String getNamaKel() {
-        return super.getNamaKel(); 
-    }
-
-    @Override
-    public void markCompleted() {
-        super.markCompleted(); 
-    }
-
-    @Override
-    public void markIncompleted() {
-        super.markIncompleted(); 
-    }
-    
-    
 
     @Override
     public String getInfo() {
-        return super.getInfo()+ "\nMata Kuliah: " + namaMataKuliah;
+        String nama;
+        if (matkul != null) {
+            nama = matkul.getNamaMatkul();
+        } else {
+            nama = "-";
+        }
+        return "[Tugas Kelompok Akademik]\nJudul: " + getJudul() + "\nMatkul: " + nama + "\nKelompok: " + getNamaKel();
     }
-    
-    
+
+    @Override
+    public String getInformasiTambahan() {
+        if (matkul != null) {
+            return matkul.getNamaMatkul();
+        } else {
+            return "-";
+        }
+    }
 }
