@@ -5,11 +5,11 @@ import com.method.ayakan.model.Catatan;
 import com.method.ayakan.model.MataKuliah;
 import com.method.ayakan.repository.CatatanRepository;
 
-public class CatatanManager {   
-    
+public class CatatanManager {
+
     private CatatanRepository repo;
-    private int idCounter = 1; 
-    
+    private int idCounter = 1;
+
     public CatatanManager(CatatanRepository repo) {
         this.repo = repo;
     }
@@ -17,7 +17,7 @@ public class CatatanManager {
     public void tambah(MataKuliah matkul, String judulCatatan, String isiCatatan) {
         int newId = idCounter++;
         Catatan ctnBaru = new Catatan(newId, judulCatatan, isiCatatan);
-        
+
         matkul.getDaftarCatatan().put(newId, ctnBaru);
         repo.save(ctnBaru);
         System.out.println("[ [Sukses] Catatan '" + judulCatatan + "' berhasil ditambahkan ke " + matkul.getNamaMatkul() + " ]");
@@ -27,14 +27,21 @@ public class CatatanManager {
         System.out.println("\n+-----------------------------------------------------------------+");
         System.out.printf("| %-63s |%n", "DAFTAR CATATAN: " + matkul.getNamaMatkul().toUpperCase());
         System.out.println("+-----------------------------------------------------------------+");
-        System.out.println("| ID | Judul Catatan        | Isi Catatan                         |");
-        System.out.println("+----+----------------------+-------------------------------------+");
-        
+
         if (matkul.getDaftarCatatan().isEmpty()) {
             System.out.println("| Belum ada catatan                                               |");
         } else {
             for (Catatan c : matkul.getDaftarCatatan().values()) {
-                System.out.printf("| %-2d | %-20s | %-35s |%n", c.getId(), c.getJudulCatatan(), c.getIsiCatatan());
+                System.out.println(" " + c.getId() + ".\tJudul: " + c.getJudulCatatan());
+                String isi = c.getIsiCatatan();
+                int lebarMaks = 63;
+
+//                pake for loop biar ngasih batesan kalo teks isi cttn lebih lebar dari batas tabel
+                for (int i = 0; i < isi.length(); i += lebarMaks) {
+                    int akhir = Math.min(i + lebarMaks, isi.length());
+                    String potongan = isi.substring(i, akhir);
+                    System.out.printf(" %-63s %n", potongan);
+                }
             }
         }
         System.out.println("+----+----------------------+-------------------------------------+");
@@ -45,7 +52,7 @@ public class CatatanManager {
             if (!matkul.getDaftarCatatan().containsKey(idCatatan)) {
                 throw new DataNotFoundException("Catatan ID " + idCatatan + " tidak ditemukan di mata kuliah ini.");
             }
-            
+
 //            manggil data cttn sesuai id dari param
             Catatan c = matkul.getDaftarCatatan().get(idCatatan);
             c.setJudulCatatan(judulBaru);
