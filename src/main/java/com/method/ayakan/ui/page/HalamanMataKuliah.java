@@ -23,8 +23,8 @@ public class HalamanMataKuliah {
             System.out.println("|  [3]  Update Nama Mata Kuliah                |");
             System.out.println("|  [4]  Hapus Mata Kuliah                      |");
             System.out.println("+----------------------------------------------+");
-            System.out.println("|  [5]  Tampilkan Catatan                      |");
-            System.out.println("|  [6]  Tampilkan Link                         |");
+            System.out.println("|  [5]  Halaman Catatan                        |");
+            System.out.println("|  [6]  Halaman Link                           |");
             System.out.println("+----------------------------------------------+");
             System.out.println("|  [0]  Kembali ke Dashboard                   |");
             System.out.println("+==============================================+");
@@ -162,38 +162,4 @@ public class HalamanMataKuliah {
         }
     }
 
-//    private static void halamanDetailMatkul(MataKuliah matkulTerpilih) {
-//        boolean diDetail = true;
-//
-//        while (diDetail) {
-//            System.out.println("\n+==============================================+");
-//            System.out.printf("| %-44s |%n", "DETAIL MATKUL: " + matkulTerpilih.getNamaMatkul().toUpperCase());
-//            System.out.println("+==============================================+");
-//            System.out.println("|  [1]  Kelola Link                            |");
-//            System.out.println("|  [2]  Kelola Catatan                         |");
-//            System.out.println("+----------------------------------------------+");
-//            System.out.println("|  [0]  Kembali ke Daftar Mata Kuliah          |");
-//            System.out.println("+==============================================+");
-//            System.out.print("  Pilih aksi: ");
-//
-//            String aksi = MissionUtil.getUserInput();
-//            if (aksi == null) {
-//                aksi = "";
-//            }
-//
-//            switch (aksi) {
-//                case "1":
-//                    HalamanLink.halamanLink(matkulTerpilih);
-//                    break;
-//                case "2":
-//                    HalamanCatatan.halamanCatatan(matkulTerpilih);
-//                    break;
-//                case "0":
-//                    diDetail = false;
-//                    break;
-//                default:
-//                    System.out.println("Pilihan tidak valid!");
-//            }
-//        }
-//    }
 }
