@@ -3,41 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.method.ayakan.model;
-
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
-/**
- *
- * @author TRYE TINTIAN RUNGA
- */
-import java.time.LocalDate;
-public class TugasIndividu extends Tugas {
-    private static final DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd-MM-yyy");
-    
-    public TugasIndividu(String judul, String deskripsi, boolean status, String priority, LocalDate deadline){
-      super(judul, deskripsi, status, priority, deadline);  
+public abstract class TugasIndividu extends Tugas {
+    public TugasIndividu(String judul, String deskripsi, boolean status, String priority, LocalDate deadline) {
+        super(judul, deskripsi, status, priority, deadline);
     }
-
-    @Override
-    public void markCompleted() {
-        super.markCompleted(); 
-    }
-
-    @Override
-    public void markIncompleted() {
-        super.markIncompleted(); 
-    }
-    
-    
     
     @Override
-    public String getInfo(){
-        return "[Tugas Individu]" +
-                "\nJudul     : " + getJudul() +
-                "\nDeskripsi: " + getDeskripsi() +
-                "\nPrioritas : " + getPriority() +
-                "\nDeadline  : " + getDeadline() +
-                "\nStatus    : " + getStatusString();
-    }
+    public boolean isKelompok() { return false; }
 }

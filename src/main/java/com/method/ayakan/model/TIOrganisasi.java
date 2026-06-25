@@ -10,34 +10,28 @@ package com.method.ayakan.model;
  */
 import java.time.LocalDate;
 public class TIOrganisasi extends TugasIndividu {
-    private String namaOrganisasi;
-    
-    public TIOrganisasi(String namaOrganisasi, String judul, String deskripsi, boolean status, String priority, LocalDate deadline) {
+    private String namaOrg;
+
+    public TIOrganisasi(String namaOrg, String judul, String deskripsi, boolean status, String priority, LocalDate deadline) {
         super(judul, deskripsi, status, priority, deadline);
-        this.namaOrganisasi = namaOrganisasi;
+        this.namaOrg = namaOrg;
     }
 
-    public String getNamaOrganisasi() {
-        return namaOrganisasi;
-    }
-
-    public void setNamaOrganisasi(String namaOrganisasi) {
-        this.namaOrganisasi = namaOrganisasi;
-    }
-    
-    @Override
-    public void markIncompleted() {
-        super.markIncompleted(); 
-    }
-
-    @Override
-    public void markCompleted() {
-        super.markCompleted(); 
-    }
-    
-   
     @Override
     public String getInfo() {
-        return super.getInfo() + "\nOrganisasi: " + namaOrganisasi;
+        return "[Tugas Individu Organisasi]\nJudul: " + getJudul() + "\nOrganisasi: " + namaOrg;
+    }
+
+    @Override
+    public String getInformasiTambahan() {
+        if (namaOrg != null) {
+            return namaOrg;
+        } else {
+            return "-";
+        }
+    }
+
+    public void setNamaOrganisasi(String namaOrg) {
+        this.namaOrg = namaOrg;
     }
 }

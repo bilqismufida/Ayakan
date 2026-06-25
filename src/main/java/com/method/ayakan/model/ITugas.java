@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package com.method.ayakan.model;
 
 
@@ -9,5 +5,6 @@ public interface ITugas {
     public String getInfo();
     public void markCompleted();
     public void markIncompleted();
-   
+   public String getInformasiTambahan(); 
+    public boolean isKelompok();
 }

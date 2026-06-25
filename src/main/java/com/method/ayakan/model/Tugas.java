@@ -84,4 +84,8 @@ public abstract class Tugas implements ITugas{
     
     @Override
     public abstract String getInfo(); 
+    
+    public abstract String getInformasiTambahan();
+    public abstract boolean isKelompok();
+
 }
