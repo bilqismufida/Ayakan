@@ -1,55 +1,71 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.method.ayakan.model;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.Random;
 
 public class Notif {
 
     private Tugas tugas;
+    private String pesan;
+
+    private static final String[] daftarPesan = {
+        "Ayo Kerjakan!!!",
+        "Hati-hati sama dosen killer!!",
+        "Nilai anda sangat penting!!!",
+        "Jangan sampai lupa submit!!!",
+        "Deadline semakin dekat!!!"
+    };
 
     public Notif(Tugas tugas) {
+
         this.tugas = tugas;
+
+        Random random = new Random();
+
+        this.pesan = daftarPesan[random.nextInt(daftarPesan.length)];
     }
 
     public Tugas getTugas() {
         return tugas;
     }
 
+    public String getPesan() {
+        return pesan;
+    }
+
     public long getSisaHari() {
+
         return ChronoUnit.DAYS.between(
                 LocalDate.now(),
-                tugas.getDeadline());
+                tugas.getDeadline()
+        );
     }
 
     public boolean perluDitampilkan() {
 
         long sisaHari = getSisaHari();
 
-        if (sisaHari < 0) {
-            return false;
-        }
-
-        int batas;
+        int batasHari;
 
         switch (tugas.getPriority().toLowerCase()) {
 
             case "high":
-                batas = 7;
+                batasHari = 7;
                 break;
 
             case "medium":
-                batas = 5;
+                batasHari = 5;
+                break;
+
+            case "low":
+                batasHari = 3;
                 break;
 
             default:
-                batas = 3;
-                break;
+                return false;
         }
 
-        return sisaHari <= batas;
+        return sisaHari <= batasHari;
     }
 }
