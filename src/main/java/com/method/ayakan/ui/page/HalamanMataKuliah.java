@@ -8,6 +8,10 @@ import com.method.ayakan.ui.MissionUtil;
 public class HalamanMataKuliah {
 
     public static void tampilkanMenu(MataKuliahManager mkManager) {
+        int idDetail = 0;
+        MataKuliah matkulTerpilih;
+        
+
         boolean diHalIni = true;
 
         while (diHalIni) {
@@ -15,9 +19,12 @@ public class HalamanMataKuliah {
             System.out.println("|              MENU MATA KULIAH                |");
             System.out.println("+==============================================+");
             System.out.println("|  [1]  Tambah Mata Kuliah                     |");
-            System.out.println("|  [2]  Tampilkan Semua & Pilih Detail Matkul  |");
+            System.out.println("|  [2]  Tampilkan Semua                        |");
             System.out.println("|  [3]  Update Nama Mata Kuliah                |");
             System.out.println("|  [4]  Hapus Mata Kuliah                      |");
+            System.out.println("+----------------------------------------------+");
+            System.out.println("|  [5]  Tampilkan Catatan                      |");
+            System.out.println("|  [6]  Tampilkan Link                         |");
             System.out.println("+----------------------------------------------+");
             System.out.println("|  [0]  Kembali ke Dashboard                   |");
             System.out.println("+==============================================+");
@@ -39,21 +46,20 @@ public class HalamanMataKuliah {
 
                     case "2":
                         mkManager.tampilkanSemua();
-                        System.out.println("-----------------------------------------------------------------");
                         System.out.print("Masukkan ID Matkul untuk buka detail (atau 0 untuk batal): ");
-                        int idDetail = Integer.parseInt(MissionUtil.getUserInput());
+                        idDetail = Integer.parseInt(MissionUtil.getUserInput());
 
                         if (idDetail == 0) {
                             break;
                         }
 
-                        MataKuliah matkulTerpilih = mkManager.cariMatkulById(idDetail);
-                        if (matkulTerpilih != null) {
-                            halamanDetailMatkul(matkulTerpilih);
-                        } else {
-                            System.out.println("[Error] Mata Kuliah dengan ID " + idDetail + " tidak ditemukan!");
-                        }
-                        break;
+//                        MataKuliah matkulTerpilih = mkManager.cariMatkulById(idDetail);
+//                        if (matkulTerpilih != null) {
+//                            halamanDetailMatkul(matkulTerpilih);
+//                        } else {
+//                            System.out.println("[Error] Mata Kuliah dengan ID " + idDetail + " tidak ditemukan!");
+//                        }
+//                        break;
 
                     case "3":
                         if (mkManager.isEmpty()) {
@@ -106,6 +112,41 @@ public class HalamanMataKuliah {
                         mkManager.hapus(idDel);
                         break;
 
+//                        PINDAH HALAMAN KE CTTN
+                    case "5":
+                        mkManager.tampilkanSemuaDanCatatan();
+                        System.out.print("Masukkan ID Matkul untuk lihat Catatan (atau 0 untuk batal): ");
+                        idDetail = Integer.parseInt(MissionUtil.getUserInput());
+
+                        if (idDetail == 0) {
+                            break;
+                        }
+
+                        matkulTerpilih = mkManager.cariMatkulById(idDetail);
+                        if (matkulTerpilih != null) {
+                            HalamanCatatan.halamanCatatan(matkulTerpilih);
+                        } else {
+                            System.out.println("[Error] Mata Kuliah dengan ID " + idDetail + " tidak ditemukan!");
+                        }
+                        break;
+//                        PINDAH HALAMAN KE LINK
+                    case "6":
+                        mkManager.tampilkanSemuaDanLink();
+                        System.out.print("Masukkan ID Matkul untuk lihat Catatan (atau 0 untuk batal): ");
+                        idDetail = Integer.parseInt(MissionUtil.getUserInput());
+
+                        if (idDetail == 0) {
+                            break;
+                        }
+
+                        matkulTerpilih = mkManager.cariMatkulById(idDetail);
+                        if (matkulTerpilih != null) {
+                            HalamanLink.halamanLink(matkulTerpilih);
+                        } else {
+                            System.out.println("[Error] Mata Kuliah dengan ID " + idDetail + " tidak ditemukan!");
+                        }
+                        break;
+
                     case "0":
                         diHalIni = false;
                         break;
@@ -121,38 +162,38 @@ public class HalamanMataKuliah {
         }
     }
 
-    private static void halamanDetailMatkul(MataKuliah matkulTerpilih) {
-        boolean diDetail = true;
-
-        while (diDetail) {
-            System.out.println("\n+==============================================+");
-            System.out.printf("| %-44s |%n", "DETAIL MATKUL: " + matkulTerpilih.getNamaMatkul().toUpperCase());
-            System.out.println("+==============================================+");
-            System.out.println("|  [1]  Kelola Link                            |");
-            System.out.println("|  [2]  Kelola Catatan                         |");
-            System.out.println("+----------------------------------------------+");
-            System.out.println("|  [0]  Kembali ke Daftar Mata Kuliah          |");
-            System.out.println("+==============================================+");
-            System.out.print("  Pilih aksi: ");
-
-            String aksi = MissionUtil.getUserInput();
-            if (aksi == null) {
-                aksi = "";
-            }
-
-            switch (aksi) {
-                case "1":
-                    HalamanLink.halamanLink(matkulTerpilih);
-                    break;
-                case "2":
-                    HalamanCatatan.halamanCatatan(matkulTerpilih);
-                    break;
-                case "0":
-                    diDetail = false;
-                    break;
-                default:
-                    System.out.println("Pilihan tidak valid!");
-            }
-        }
-    }
+//    private static void halamanDetailMatkul(MataKuliah matkulTerpilih) {
+//        boolean diDetail = true;
+//
+//        while (diDetail) {
+//            System.out.println("\n+==============================================+");
+//            System.out.printf("| %-44s |%n", "DETAIL MATKUL: " + matkulTerpilih.getNamaMatkul().toUpperCase());
+//            System.out.println("+==============================================+");
+//            System.out.println("|  [1]  Kelola Link                            |");
+//            System.out.println("|  [2]  Kelola Catatan                         |");
+//            System.out.println("+----------------------------------------------+");
+//            System.out.println("|  [0]  Kembali ke Daftar Mata Kuliah          |");
+//            System.out.println("+==============================================+");
+//            System.out.print("  Pilih aksi: ");
+//
+//            String aksi = MissionUtil.getUserInput();
+//            if (aksi == null) {
+//                aksi = "";
+//            }
+//
+//            switch (aksi) {
+//                case "1":
+//                    HalamanLink.halamanLink(matkulTerpilih);
+//                    break;
+//                case "2":
+//                    HalamanCatatan.halamanCatatan(matkulTerpilih);
+//                    break;
+//                case "0":
+//                    diDetail = false;
+//                    break;
+//                default:
+//                    System.out.println("Pilihan tidak valid!");
+//            }
+//        }
+//    }
 }

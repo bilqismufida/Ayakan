@@ -42,6 +42,47 @@ public class MataKuliahManager {
         }
         System.out.println("+----+------------------------------+-------------+----------------+");
     }
+    public void tampilkanSemuaDanCatatan() {
+        // Sesuaikan garis pembatas agar cukup lebar untuk semua kolom
+        System.out.println("\n+----+------------------------------+-------------+----------------+");
+        System.out.printf("| %-62s |%n", "DAFTAR MATA KULIAH");
+        System.out.println("+----+--------------------------------------------+----------------+");
+        System.out.println("| ID | Mata Kuliah                                | Jml Catatan    |");
+        System.out.println("+----+--------------------------------------------+----------------+");
+
+        if (repo.isEmpty()) {
+            System.out.println("| Belum ada mata kuliah yang terdaftar                           |");
+        } else {
+            for (MataKuliah mk : repo.findAll().values()) {
+                int jmlCatatan = mk.getDaftarCatatan().size();
+
+                System.out.printf("| %-2d | %-42s | %-14d |%n",
+                        mk.getId(), mk.getNamaMatkul(), jmlCatatan);
+            }
+        }
+        System.out.println("+----+------------------------------+-------------+----------------+");
+    }
+    
+    public void tampilkanSemuaDanLink() {
+        // Sesuaikan garis pembatas agar cukup lebar untuk semua kolom
+        System.out.println("\n+----+------------------------------+-------------+----------------+");
+        System.out.printf("| %-62s |%n", "DAFTAR MATA KULIAH");
+        System.out.println("+----+--------------------------------------------+----------------+");
+        System.out.println("| ID | Mata Kuliah                                | Jml Link       |");
+        System.out.println("+----+--------------------------------------------+----------------+");
+
+        if (repo.isEmpty()) {
+            System.out.println("| Belum ada mata kuliah yang terdaftar                           |");
+        } else {
+            for (MataKuliah mk : repo.findAll().values()) {
+                int jmlLink = mk.getDaftarCatatan().size();
+
+                System.out.printf("| %-2d | %-42s | %-14d |%n",
+                        mk.getId(), mk.getNamaMatkul(), jmlLink);
+            }
+        }
+        System.out.println("+----+------------------------------+-------------+----------------+");
+    }
 
     public void update(int idTarget, String namaMatkulBaru) {
         MataKuliah mk = repo.findById(idTarget);

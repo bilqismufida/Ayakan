@@ -27,14 +27,16 @@ public class CatatanManager {
         System.out.println("\n+-----------------------------------------------------------------+");
         System.out.printf("| %-63s |%n", "DAFTAR CATATAN: " + matkul.getNamaMatkul().toUpperCase());
         System.out.println("+-----------------------------------------------------------------+");
-        System.out.println("| ID | Judul Catatan        | Isi Catatan                         |");
-        System.out.println("+----+----------------------+-------------------------------------+");
+//        System.out.println("| ID | Judul Catatan        | Isi Catatan                         |");
+//        System.out.println("+----+----------------------+-------------------------------------+");
         
         if (matkul.getDaftarCatatan().isEmpty()) {
             System.out.println("| Belum ada catatan                                               |");
         } else {
             for (Catatan c : matkul.getDaftarCatatan().values()) {
-                System.out.printf("| %-2d | %-20s | %-35s |%n", c.getId(), c.getJudulCatatan(), c.getIsiCatatan());
+//                System.out.printf("| %-2d | %-20s | %-35s |%n", c.getId(), c.getJudulCatatan(), c.getIsiCatatan());
+                System.out.println(c.getId() + ".\tJudul: " + c.getJudulCatatan());
+                System.out.println(c.getIsiCatatan());
             }
         }
         System.out.println("+----+----------------------+-------------------------------------+");
