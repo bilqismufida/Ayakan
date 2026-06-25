@@ -16,9 +16,6 @@ public class MainTerminal {
     private static HalamanTugas haltugas;
     private static HalamanNotif halNotif;
     
-    //panggil menu terminal
-    private static UITerminal cover;
-    
     private static HalamanMataKuliah mk;
     private static Iterable<Tugas> daftarTugas;
 
@@ -93,9 +90,6 @@ public class MainTerminal {
 
         MataKuliah dpbo =
             mkManager.cariMatkulById(1);
-
-        MataKuliah statistika =
-            mkManager.cariMatkulById(2);
 
         MataKuliah matdis =
             mkManager.cariMatkulById(3);

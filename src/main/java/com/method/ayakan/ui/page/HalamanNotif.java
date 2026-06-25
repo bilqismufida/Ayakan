@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.method.ayakan.ui.page;
 
 import com.method.ayakan.model.Notif;
@@ -10,7 +6,6 @@ import com.method.ayakan.service.TaskManager;
 import com.method.ayakan.ui.MissionUtil;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
 public class HalamanNotif {
 
@@ -22,35 +17,13 @@ public class HalamanNotif {
 
     public void tampilkanMenuNotif() {
 
-        boolean running = true;
+        tampilkanByPrioritas();
 
-        while (running) {
+        System.out.println();
+        System.out.println("0. Kembali");
+        System.out.print("Pilihan : ");
 
-            tampilkanByDeadline();
-
-            System.out.println();
-            System.out.println("--------------------------------");
-            System.out.println("1. Urutkan Berdasarkan Prioritas");
-            System.out.println("0. Kembali");
-            System.out.println("--------------------------------");
-            System.out.print("Pilihan : ");
-
-            String pilih = MissionUtil.getUserInput();
-
-            switch (pilih) {
-
-                case "1":
-                    tampilkanMenuPrioritas();
-                    break;
-
-                case "0":
-                    running = false;
-                    break;
-
-                default:
-                    System.out.println("Pilihan tidak valid!");
-            }
-        }
+        MissionUtil.getUserInput();
     }
 
     private ArrayList<Notif> getDaftarNotif() {
@@ -69,23 +42,51 @@ public class HalamanNotif {
         return daftarNotif;
     }
 
-    private void tampilkanByDeadline() {
+    private void tampilkanByPrioritas() {
 
         ArrayList<Notif> daftar = getDaftarNotif();
 
-        daftar.sort(
-                Comparator.comparing(
-                        n -> n.getTugas().getDeadline()
-                )
-        );
+        daftar.sort((n1, n2) -> {
+            int p1 = getPriorityValue(n1.getTugas().getPriority());
+
+            int p2 = getPriorityValue(n2.getTugas().getPriority());
+
+            return Integer.compare(p1, p2);
+        });
+
+        tampilkanTabelNotif(daftar);
+    }
+
+    private int getPriorityValue(String priority) {
+
+        switch (priority.toLowerCase()) {
+
+            case "high":
+                return 1;
+
+            case "medium":
+                return 2;
+
+            case "low":
+                return 3;
+
+            default:
+                return 4;
+        }
+    }
+
+    private void tampilkanTabelNotif(ArrayList<Notif> daftar) {
 
         System.out.println();
-        System.out.println("====================");
-        System.out.println("    NOTIFIKASI");
-        System.out.println("====================");
+        System.out.println("+------------------------------------------------------------------+");
+        System.out.println("|                           NOTIFIKASI                             |");
+        System.out.println("+------------------------------------------------------------------+");
 
         if (daftar.isEmpty()) {
-            System.out.println("\nTidak ada notifikasi.");
+
+            System.out.printf("| %-64s |\n", "Tidak ada notifikasi.");
+
+            System.out.println("+------------------------------------------------------------------+");
             return;
         }
 
@@ -95,100 +96,43 @@ public class HalamanNotif {
 
             Tugas tugas = notif.getTugas();
 
-            System.out.println();
-            System.out.println(no++ + ") " + tugas.getJudul());
-            System.out.println("   [" + tugas.getDeskripsi() + "]");
-            System.out.println("   Priority  : " + tugas.getPriority());
-            System.out.println("   Deadline  : " + tugas.getDeadline());
-            System.out.println("   Sisa Hari : " + notif.getSisaHari() + " hari");
-        }
-    }
+            String isiNotif;
 
-    private void tampilkanMenuPrioritas() {
+            if (notif.getSisaHari() < 0) {
 
-        boolean running = true;
+                isiNotif = no++ + ") " + "[" + tugas.getPriority().toUpperCase() + "] " + "[SUDAH LEWAT] " + tugas.getJudul() 
+                        + " deadline telah terlewati " + Math.abs(notif.getSisaHari()) + " hari!!! " + notif.getPesan();
 
-        while (running) {
+            } else {
 
-            tampilkanByPrioritas();
-
-            System.out.println();
-            System.out.println("--------------------------------");
-            System.out.println("1. Kembali ke Urutan Deadline");
-            System.out.println("0. Kembali");
-            System.out.println("--------------------------------");
-            System.out.print("Pilihan : ");
-
-            String pilih = MissionUtil.getUserInput();
-
-            switch (pilih) {
-
-                case "1":
-                    return;
-
-                case "0":
-                    return;
-
-                default:
-                    System.out.println("Pilihan tidak valid!");
+                isiNotif = no++ + ") " + "[" + tugas.getPriority().toUpperCase() + "] " + tugas.getJudul() + " tinggal sisa "
+                        + notif.getSisaHari() + " hari!!! " + notif.getPesan();
             }
+
+            printDalamTabel(isiNotif);
+
+            System.out.printf("| %-64s |\n", "");
         }
+
+        System.out.println("+------------------------------------------------------------------+");
     }
 
-    private void tampilkanByPrioritas() {
+    private void printDalamTabel(String text) {
 
-        ArrayList<Notif> daftar = getDaftarNotif();
+        int lebar = 64;
 
-        System.out.println();
-        System.out.println("====================");
-        System.out.println("    NOTIFIKASI");
-        System.out.println("====================");
+        while (text.length() > lebar) {
 
-        tampilkanKategori("High", daftar);
-        tampilkanKategori("Medium", daftar);
-        tampilkanKategori("Low", daftar);
-    }
+            int batas = text.lastIndexOf(" ", lebar);
 
-    private void tampilkanKategori(
-            String priority,
-            ArrayList<Notif> daftar) {
-
-        System.out.println();
-        System.out.println("===== "
-                + priority.toUpperCase()
-                + " =====");
-
-        int no = 1;
-        boolean ada = false;
-
-        for (Notif notif : daftar) {
-
-            Tugas tugas = notif.getTugas();
-
-            if (tugas.getPriority()
-                    .equalsIgnoreCase(priority)) {
-
-                ada = true;
-
-                System.out.println();
-                System.out.println(no++ + ") "
-                        + tugas.getJudul());
-
-                System.out.println("   ["
-                        + tugas.getDeskripsi()
-                        + "]");
-
-                System.out.println("   Deadline  : "
-                        + tugas.getDeadline());
-
-                System.out.println("   Sisa Hari : "
-                        + notif.getSisaHari()
-                        + " hari");
+            if (batas <= 0) {
+                batas = lebar;
             }
+            text = text.substring(batas).trim();
+            
+            System.out.printf("| %-64s |\n", text.substring(0, batas));
         }
 
-        if (!ada) {
-            System.out.println("Tidak ada tugas.");
-        }
+        System.out.printf("| %-64s |\n", text);
     }
 }
