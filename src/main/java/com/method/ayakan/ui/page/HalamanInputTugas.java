@@ -230,8 +230,10 @@ public class HalamanInputTugas {
     }
 
     private Tugas buatTugasIndividu(String judul, String deskripsi, String priority, LocalDate deadline, boolean status) {
-        System.out.println("1. Akademik, "
-                + "\n2. Organisasi");
+        System.out.println("\n--- Pilih Jenis Tugas ---");
+        System.out.println("1. Akademik");
+        System.out.println("2. Organisasi");
+        System.out.print("Pilihan (1-2): ");
         String sub = MissionUtil.getUserInput();
         if (sub.equals("1")) {
             return new TIAkademik(pilihMatkulTugas(), judul, deskripsi, status, priority, deadline);
