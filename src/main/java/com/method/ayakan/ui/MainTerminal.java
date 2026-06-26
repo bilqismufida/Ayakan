@@ -66,7 +66,11 @@ public class MainTerminal {
 
             switch (pilihan) {
                 case "1":
-                    HalamanMataKuliah.tampilkanMenu(mkManager);
+                     HalamanMataKuliah.tampilkanMenu(
+            mkManager,
+            linkManager,
+            catatanManager
+    );
                     break;
                 case "2":
                     haltugas.tampilkanMenuTugas();

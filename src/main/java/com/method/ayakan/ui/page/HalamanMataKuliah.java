@@ -2,15 +2,20 @@ package com.method.ayakan.ui.page;
 
 import com.method.ayakan.exception.DataNotFoundException;
 import com.method.ayakan.model.MataKuliah;
+import com.method.ayakan.service.CatatanManager;
+import com.method.ayakan.service.LinkManager;
 import com.method.ayakan.service.MataKuliahManager;
 import com.method.ayakan.ui.MissionUtil;
 
 public class HalamanMataKuliah {
 
-    public static void tampilkanMenu(MataKuliahManager mkManager) {
+    public static void tampilkanMenu(
+            MataKuliahManager mkManager,
+            LinkManager linkManager,
+            CatatanManager catatanManager
+    ) {
         int idDetail = 0;
         MataKuliah matkulTerpilih;
-        
 
         boolean diHalIni = true;
 
@@ -46,20 +51,9 @@ public class HalamanMataKuliah {
 
                     case "2":
                         mkManager.tampilkanSemua();
-                        System.out.print("Masukkan ID Matkul untuk buka detail (atau 0 untuk batal): ");
-                        idDetail = Integer.parseInt(MissionUtil.getUserInput());
-
-                        if (idDetail == 0) {
-                            break;
-                        }
-
-//                        MataKuliah matkulTerpilih = mkManager.cariMatkulById(idDetail);
-//                        if (matkulTerpilih != null) {
-//                            halamanDetailMatkul(matkulTerpilih);
-//                        } else {
-//                            System.out.println("[Error] Mata Kuliah dengan ID " + idDetail + " tidak ditemukan!");
-//                        }
-//                        break;
+                        System.out.print("\nSilakan tekan enter untuk melanjutkan..");
+                        MissionUtil.getUserInput();
+                        break;
 
                     case "3":
                         if (mkManager.isEmpty()) {
@@ -124,7 +118,7 @@ public class HalamanMataKuliah {
 
                         matkulTerpilih = mkManager.cariMatkulById(idDetail);
                         if (matkulTerpilih != null) {
-                            HalamanCatatan.halamanCatatan(matkulTerpilih);
+                            HalamanCatatan.halamanCatatan(matkulTerpilih, catatanManager);
                         } else {
                             System.out.println("[Error] Mata Kuliah dengan ID " + idDetail + " tidak ditemukan!");
                         }
@@ -141,7 +135,10 @@ public class HalamanMataKuliah {
 
                         matkulTerpilih = mkManager.cariMatkulById(idDetail);
                         if (matkulTerpilih != null) {
-                            HalamanLink.halamanLink(matkulTerpilih);
+                            HalamanLink.halamanLink(
+                                    matkulTerpilih,
+                                    linkManager
+                            );
                         } else {
                             System.out.println("[Error] Mata Kuliah dengan ID " + idDetail + " tidak ditemukan!");
                         }

@@ -78,7 +78,7 @@ public class MataKuliahManager {
             System.out.println("| Belum ada mata kuliah yang terdaftar                           |");
         } else {
             for (MataKuliah mk : repo.findAll().values()) {
-                int jmlLink = mk.getDaftarCatatan().size();
+                int jmlLink = mk.getDaftarLink().size();
 
                 System.out.printf("| %-2d | %-42s | %-14d |%n",
                         mk.getId(), mk.getNamaMatkul(), jmlLink);

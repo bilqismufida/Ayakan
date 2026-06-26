@@ -9,10 +9,7 @@ import com.method.ayakan.ui.MissionUtil;
 
 public class HalamanLink {
 
-    private static LinkRepository repoLink = new LinkRepository();
-    private static LinkManager linkManager = new LinkManager(repoLink);
-
-    public static void halamanLink(MataKuliah matkulTerpilih) {
+    public static void halamanLink(MataKuliah matkulTerpilih, LinkManager linkManager) {
         boolean diHalIni = true;
 
         while (diHalIni) {
@@ -67,14 +64,27 @@ public class HalamanLink {
                         int idUpdLink = Integer.parseInt(MissionUtil.getUserInput());
 
                         try {
-                            if (!repoLink.check(idUpdLink)) {
-                                throw new DataNotFoundException("Link dengan ID " + idUpdLink + " tidak ditemukan");
+                            if (!matkulTerpilih
+                                    .getDaftarLink()
+                                    .containsKey(idUpdLink)) {
+
+                                throw new DataNotFoundException(
+                                        "Link dengan ID "
+                                        + idUpdLink
+                                        + " tidak ditemukan"
+                                );
                             }
 
-                            Link linkLama = repoLink.findById(idUpdLink);
+                            Link linkLama
+                                    = matkulTerpilih
+                                            .getDaftarLink()
+                                            .get(idUpdLink);
+
                             System.out.println("----------------------------------------");
-                            System.out.println("Judul Lama : " + linkLama.getJudulLink());
-                            System.out.println("URL Lama   : " + linkLama.getUrl());
+                            System.out.println("Judul Lama : "
+                                    + linkLama.getJudulLink());
+                            System.out.println("URL Lama   : "
+                                    + linkLama.getUrl());
                             System.out.println("----------------------------------------");
 
                             System.out.print("Masukkan Judul Baru: ");

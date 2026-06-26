@@ -3,16 +3,12 @@ package com.method.ayakan.ui.page;
 import com.method.ayakan.exception.DataNotFoundException;
 import com.method.ayakan.model.Catatan;
 import com.method.ayakan.model.MataKuliah;
-import com.method.ayakan.repository.CatatanRepository;
 import com.method.ayakan.service.CatatanManager;
 import com.method.ayakan.ui.MissionUtil;
 
 public class HalamanCatatan {
 
-    private static CatatanRepository repoCatatan = new CatatanRepository();
-    private static CatatanManager catatanManager = new CatatanManager(repoCatatan);
-
-    public static void halamanCatatan(MataKuliah matkulTerpilih) {
+    public static void halamanCatatan(MataKuliah matkulTerpilih, CatatanManager catatanManager) {
         boolean diHalIni = true;
 
         while (diHalIni) {
@@ -68,11 +64,21 @@ public class HalamanCatatan {
                         int idUpdCatatan = Integer.parseInt(MissionUtil.getUserInput());
 
                         try {
-                            if (!repoCatatan.check(idUpdCatatan)) {
-                                throw new DataNotFoundException("Catatan dengan ID " + idUpdCatatan + " tidak ditemukan");
+                            if (!matkulTerpilih
+                                    .getDaftarCatatan()
+                                    .containsKey(idUpdCatatan)) {
+
+                                throw new DataNotFoundException(
+                                        "Catatan dengan ID "
+                                        + idUpdCatatan
+                                        + " tidak ditemukan");
                             }
 
-                            Catatan cLama = repoCatatan.findById(idUpdCatatan);
+                            Catatan cLama
+                                    = matkulTerpilih
+                                            .getDaftarCatatan()
+                                            .get(idUpdCatatan);
+
                             System.out.println("----------------------------------------");
                             System.out.println("Judul Lama : " + cLama.getJudulCatatan());
                             System.out.println("Isi Lama   : " + cLama.getIsiCatatan());
