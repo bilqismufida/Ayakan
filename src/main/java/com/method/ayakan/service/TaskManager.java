@@ -4,11 +4,11 @@
  */
 package com.method.ayakan.service;
 
-import java.util.ArrayList;
 import java.time.LocalDate;
-import com.method.ayakan.model.*;
+import java.util.ArrayList;
+
 import com.method.ayakan.exception.DataNotFoundException;
-import com.method.ayakan.model.Notif;
+import com.method.ayakan.model.Tugas;
 
 /**
  *
@@ -23,30 +23,30 @@ public class TaskManager {
         this.mkManager = mkManager;
         this.daftarTugas = new ArrayList<>();
 
-        inisialisasiTugas();
+        // inisialisasiTugas();
     }
 
     public void tambahTugas(Tugas t) {
         daftarTugas.add(t);
     }
 
-    private void inisialisasiTugas() {
+    // private void inisialisasiTugas() {
 
-        MataKuliah dpbo = mkManager.cariMatkulById(1);
-        MataKuliah stat = mkManager.cariMatkulById(2);
-        MataKuliah matdis = mkManager.cariMatkulById(3);
+    //     MataKuliah dpbo = mkManager.cariMatkulById(1);
+    //     MataKuliah stat = mkManager.cariMatkulById(2);
+    //     MataKuliah matdis = mkManager.cariMatkulById(3);
 
-        ArrayList<String> anggotaDPBO = new ArrayList<>();
-        anggotaDPBO.add("Raya");
-        anggotaDPBO.add("Trye");
-        anggotaDPBO.add("Aulia");
+    //     ArrayList<String> anggotaDPBO = new ArrayList<>();
+    //     anggotaDPBO.add("Raya");
+    //     anggotaDPBO.add("Trye");
+    //     anggotaDPBO.add("Aulia");
 
-        daftarTugas.add(new TKAkademik(dpbo, "Kelompok A", anggotaDPBO, "Tugas Besar DPBO", "Membuat aplikasi", false, "High", LocalDate.now().plusDays(5)));
-        daftarTugas.add(new TIAkademik(stat, "Laporan Uji Hipotesis", "Mengerjakan laporan", false, "Medium", LocalDate.now().plusDays(4)));
-        daftarTugas.add(new TIOrganisasi("Staff Muda HMRPL", "Studi Banding", "Bertatap muka", false, "Medium", LocalDate.now().plusDays(3)));
-        daftarTugas.add(new TIAkademik(matdis, "Kuis Minggu-13", "Mengerjakan soal", false, "Low", LocalDate.now().plusDays(2)));
+    //     daftarTugas.add(new TKAkademik(dpbo, "Kelompok A", anggotaDPBO, "Tugas Besar DPBO", "Membuat aplikasi", false, "High", LocalDate.now().plusDays(5)));
+    //     daftarTugas.add(new TIAkademik(stat, "Laporan Uji Hipotesis", "Mengerjakan laporan", false, "Medium", LocalDate.now().plusDays(4)));
+    //     daftarTugas.add(new TIOrganisasi("Staff Muda HMRPL", "Studi Banding", "Bertatap muka", false, "Medium", LocalDate.now().plusDays(3)));
+    //     daftarTugas.add(new TIAkademik(matdis, "Kuis Minggu-13", "Mengerjakan soal", false, "Low", LocalDate.now().plusDays(2)));
 
-    }
+    // }
 
     public void editTugas(int index, String judulBaru, String descBaru, String priorityBaru, LocalDate deadlineBaru) throws DataNotFoundException {
         if (index < 0 || index >= daftarTugas.size()) {

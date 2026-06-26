@@ -5,15 +5,17 @@ import com.method.ayakan.model.MataKuliah;
 import com.method.ayakan.repository.MataKuliahRepository;
 
 public class MataKuliahManager {
-    
+    private static CatatanManager catatanManager;
+    private static LinkManager linkManager;
+
     private MataKuliahRepository repo;
     private int idCounter = 1;
-    
+
     public MataKuliahManager(MataKuliahRepository repo) {
         this.repo = repo;
-        
     }
     
+
     public void tambah(String namaMatkul) {
         int idOtomatis = idCounter++;
         MataKuliah mk = new MataKuliah(idOtomatis, namaMatkul);
@@ -42,6 +44,7 @@ public class MataKuliahManager {
         }
         System.out.println("+----+------------------------------+-------------+----------------+");
     }
+
     public void tampilkanSemuaDanCatatan() {
         // Sesuaikan garis pembatas agar cukup lebar untuk semua kolom
         System.out.println("\n+----+------------------------------+-------------+----------------+");
@@ -62,7 +65,7 @@ public class MataKuliahManager {
         }
         System.out.println("+----+------------------------------+-------------+----------------+");
     }
-    
+
     public void tampilkanSemuaDanLink() {
         // Sesuaikan garis pembatas agar cukup lebar untuk semua kolom
         System.out.println("\n+----+------------------------------+-------------+----------------+");
@@ -111,4 +114,6 @@ public class MataKuliahManager {
     public boolean isEmpty() {
         return repo.isEmpty();
     }
+
+
 }

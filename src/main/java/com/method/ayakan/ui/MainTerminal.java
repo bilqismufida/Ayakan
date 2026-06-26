@@ -1,41 +1,48 @@
 package com.method.ayakan.ui;
 
-import com.method.ayakan.model.*;
-import com.method.ayakan.repository.*;
-import com.method.ayakan.service.*;
-import com.method.ayakan.ui.page.*;
-import java.time.LocalDate;
-import java.util.ArrayList;
+import com.method.ayakan.dummy.DummyDataInitializer;
+import com.method.ayakan.repository.CatatanRepository;
+import com.method.ayakan.repository.LinkRepository;
+import com.method.ayakan.repository.MataKuliahRepository;
+import com.method.ayakan.service.CatatanManager;
+import com.method.ayakan.service.LinkManager;
+import com.method.ayakan.service.MataKuliahManager;
+import com.method.ayakan.service.TaskManager;
+import com.method.ayakan.ui.page.HalamanMataKuliah;
+import com.method.ayakan.ui.page.HalamanNotif;
+import com.method.ayakan.ui.page.HalamanTugas;
 
 public class MainTerminal {
+
     private static MataKuliahManager mkManager;
-    private static CatatanManager catatanmanager;
-    private static LinkManager linkmanager;
+    private static CatatanManager catatanManager;
+    private static LinkManager linkManager;
     private static TaskManager taskManager;
     private static HalamanTugas haltugas;
     private static HalamanNotif halNotif;
-    
+
     public static void main(String[] args) {
-        // 1. Inisialisasi Repository
         MataKuliahRepository repoMk = new MataKuliahRepository();
         LinkRepository repoL = new LinkRepository();
         CatatanRepository repoCatatan = new CatatanRepository();
 
-        // 2. Inisialisasi Manager
+        // Manager
         mkManager = new MataKuliahManager(repoMk);
-        linkmanager = new LinkManager(repoL);
-        catatanmanager = new CatatanManager(repoCatatan);
+        linkManager = new LinkManager(repoL);
+        catatanManager = new CatatanManager(repoCatatan);
+        taskManager = new TaskManager(mkManager);
 
-        // 3. Tambahkan data Mata Kuliah DULU (Agar bisa dipakai TaskManager)
-        mkManager.tambah("DPBO");
-        mkManager.tambah("Statistika");
-        mkManager.tambah("Matematika Diskrit");
-
-        // 4. Baru inisialisasi TaskManager (Mengirim mkManager agar bisa akses objek Matkul)
-        taskManager = new TaskManager(mkManager); 
-
-        // 5. Inisialisasi Halaman UI
+        DummyDataInitializer.init(
+                mkManager,
+                taskManager,
+                catatanManager,
+                linkManager
+        );
+// UI
         haltugas = new HalamanTugas(taskManager, mkManager);
+        halNotif = new HalamanNotif(taskManager);
+
+        jalankanAplikasi();
         halNotif = new HalamanNotif(taskManager);
 
         jalankanAplikasi();
