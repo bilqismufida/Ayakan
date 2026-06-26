@@ -49,25 +49,7 @@ public class HalamanInputTugas {
         System.out.print("\nTekan Enter untuk kembali...");
         MissionUtil.getUserInput();
     }
-
-    // public void inputEditTugas() {
-    //     System.out.println("\n=== EDIT TUGAS ===");
-    //     halamanTugas.tampilkanDaftar();
-    //     System.out.print("Pilih nomor tugas untuk diedit: ");
-    //     try {
-    //         int index = Integer.parseInt(MissionUtil.getUserInput()) - 1;
-    //         System.out.print("Judul Baru: ");
-    //         String j = MissionUtil.getUserInput();
-    //         System.out.print("Deskripsi Baru: ");
-    //         String d = MissionUtil.getUserInput();
-    //         taskManager.editTugas(index, j, d, inputPriority(), inputDeadline());
-    //         System.out.println("Tugas berhasil diedit!");
-    //     } catch (Exception e) {
-    //         System.out.println("Gagal edit: " + e.getMessage());
-    //     }
-    //     System.out.print("\nTekan Enter untuk kembali...");
-    //     MissionUtil.getUserInput();
-    // }
+    
     public void inputEditTugas() {
         halamanTugas.tampilkanDaftar();
         ArrayList<Tugas> list = taskManager.tampilkanTugas();
@@ -92,7 +74,7 @@ public class HalamanInputTugas {
 
             String judulBaru = tugasLama.getJudul();
             String descBaru = tugasLama.getDeskripsi();
-            String priorityBaru = tugasLama.getDeskripsi();
+            String priorityBaru = tugasLama.getPriority();
             LocalDate deadlineBaru = tugasLama.getDeadline();
 
 //            nemuin(?) apakah tugasnya akademik/org/kelmpok
