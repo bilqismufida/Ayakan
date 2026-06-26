@@ -128,9 +128,10 @@ public class HalamanNotif {
             if (batas <= 0) {
                 batas = lebar;
             }
-            text = text.substring(batas).trim();
             
             System.out.printf("| %-64s |\n", text.substring(0, batas));
+            
+            text = text.substring(batas).trim();
         }
 
         System.out.printf("| %-64s |\n", text);
