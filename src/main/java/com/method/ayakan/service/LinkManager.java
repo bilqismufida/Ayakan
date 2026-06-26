@@ -21,7 +21,7 @@ public class LinkManager {
         matkul.getDaftarLink().put(newId, linkBaru);
         repo.save(linkBaru);
         
-        System.out.println("[ [Success] Link '" + judul + "' berhasil ditambahkan ke " + matkul.getNamaMatkul() + " ]");
+        System.out.println("[ [Sukses] Link '" + judul + "' berhasil ditambahkan ke " + matkul.getNamaMatkul() + " ]");
     }
 
     public void tampilkanSemua(MataKuliah matkul) {
